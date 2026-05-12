@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: relatosdepapel
+server:
+  port: 8085
