@@ -45,87 +45,94 @@ Code
 - 
 
 ## Modelo entidad-relación
-┌──────────────┐
-│    Users     │
-├──────────────┤
-│ user_id (PK) │
-│ username     │
-│ email        │
-│ password     │
-│ first_name   │
-│ last_name    │
-│ created_at   │
-│ updated_at   │
-└────────┬─────┘
-         │ 1:N
-         ├─────────────────────┐
-         │                     │
-         ▼                     ▼
-   ┌───────────────┐    ┌──────────────┐
-   │   Orders      │    │  Addresses   │
-   ├───────────────┤    ├──────────────┤
-   │ order_id (PK) │    │address_id(PK)│
-   │ user_id (FK)  │    │ user_id (FK) │
-   │ order_date    │    │ address      │
-   │ status        │    │ city         │
-   │ total         │    │ postal_code  │
-   │address_id(FK) │    | country      │
-   │ created_at    │    │ phone        │
-   │ updated_at    │    │ is_default   │
-   └────────┬──────┘    │ created_at   │
-            |           └──────────────┘
-            │ 1:N
-            │
-            ▼
-      ┌──────────────┐
-      │ OrderItems   │
-      ├──────────────┤
-      │   id (PK)    │
-      │order_id (FK) │
-      │ book_id (FK) │
-      │ quantity     │
-      │ price        │
-      │ created_at   │
-      └────────┬─────┘
-               │ N:1
-               │
-               ▼
-         ┌───────────────────┐
-         │     Books         │
-         ├───────────────────┤
-         │  book_id (PK)     │
-         │  title            │
-         │  author           │
-         │  isbn             │
-         │  price            │
-         │  stock            │
-         │  cover_url        │
-         │  description      │
-         │  genre            │
-         │  format           │
-         │  language         │
-         │  publication_date │
-         │  popularity       │
-         │  is_available     │
-         │  created_at       │
-         │  updated_at       │
-         └────────┬──────────┘
-                  │ 1:N
-                  ├──────────────┐
-                  │              │
-                  ▼              ▼
-         ┌──────────────────────┐  ┌─────────────────┐
-         │    Reviews           │  │   Payments      │
-         ├──────────────────────┤  ├─────────────────┤
-         │ review_id (PK)       │  │ payment_id (PK) │
-         │ book_id (FK)         │  │ order_id (FK)   │
-         │ user_id (FK)         │  │ amount          │
-         │ rating               │  │ method          │
-         │ comment              │  │ payment_date    │
-         │ is_verified_purchase │  │ status          │
-         │ review_date          │  │ transaction_id  │
-         │ created_at           │  │ created_at.     │
-         └──────────────────────┘  └─────────────────┘
+```mermaid
+erDiagram
+    USERS ||--o{ ORDERS : "places"
+    USERS ||--o{ ADDRESSES : "has"
+    ORDERS ||--|{ ORDERITEMS : "contains"
+    BOOKS ||--o{ ORDERITEMS : "included_in"
+    BOOKS ||--o{ REVIEWS : "has"
+    USERS ||--o{ REVIEWS : "writes"
+    ORDERS ||--|| PAYMENTS : "pays"
+
+    USERS {
+        int user_id PK
+        string username
+        string email
+        string password
+        string first_name
+        string last_name
+        datetime created_at
+        datetime updated_at
+    }
+    ADDRESSES {
+        int address_id PK
+        int user_id FK
+        string address
+        string city
+        string postal_code
+        string country
+        string phone
+        boolean is_default
+        datetime created_at
+    }
+    ORDERS {
+        int order_id PK
+        int user_id FK
+        int address_id FK
+        datetime order_date
+        string status
+        decimal total
+        datetime created_at
+        datetime updated_at
+    }
+    ORDERITEMS {
+        int id PK
+        int order_id FK
+        int book_id FK
+        int quantity
+        decimal price
+        datetime created_at
+    }
+    BOOKS {
+        int book_id PK
+        string title
+        string author
+        string isbn
+        decimal price
+        int stock
+        string cover_url
+        string description
+        string genre
+        string format
+        string language
+        datetime publication_date
+        string popularity
+        boolean is_available
+        datetime created_at
+        datetime updated_at
+    }
+    REVIEWS {
+        int review_id PK
+        int book_id FK
+        int user_id FK
+        int rating
+        string comment
+        boolean is_verified_purchase
+        datetime review_date
+        datetime created_at
+    }
+    PAYMENTS {
+        int payment_id PK
+        int order_id FK
+        decimal amount
+        string method
+        datetime payment_date
+        string status
+        string transaction_id
+        datetime created_at
+    }
+```
 
 ## 🛠️ Instalación y Configuración
 
@@ -140,7 +147,7 @@ Code
 ```bash
 git clone git@github.com:jmogollon-unir/dev_full_stack.git
 
-cd UNIR-SOFTWARE-G18-RELATOS-PAPEL
+cd dev_full_stack
 ```
 
 ## Crear base de datos local con docker
@@ -176,6 +183,7 @@ USE books_catalogue;
 
 ## Iniciar servidor de desarrollo desde intelliJ IDEA
 
+- 
 
 👥 Integrantes
 Proyecto desarrollado por el Grupo 18 de la materia Desarrollo Full Stack del Máster Universitario en Ingeniería de Software y Sistemas Informáticos - UNIR.
