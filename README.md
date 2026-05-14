@@ -47,13 +47,17 @@ Code
 ## Modelo entidad-relación
 ```mermaid
 erDiagram
-    USERS ||--o{ ORDERS : "places"
     USERS ||--o{ ADDRESSES : "has"
-    ORDERS ||--|{ ORDERITEMS : "contains"
-    BOOKS ||--o{ ORDERITEMS : "included_in"
-    BOOKS ||--o{ REVIEWS : "has"
+    USERS ||--o{ ORDERS : "places"
     USERS ||--o{ REVIEWS : "writes"
-    ORDERS ||--|| PAYMENTS : "pays"
+    ORDERS ||--|{ ORDER_ITEMS : "contains"
+    ORDERS ||--|{ PAYMENTS : "pays"
+    BOOKS ||--o{ ORDER_ITEMS : "ordered_in"
+    BOOKS ||--o{ REVIEWS : "has"
+    GENRES ||--|{ BOOKS : "classifies"
+    TBL_STATUS ||--|{ ORDERS : "with"
+    TBL_STATUS ||--|{ PAYMENTS : "has"
+    PAY_METHODS ||--|{ PAYMENTS : "used_in"
 
     USERS {
         int user_id PK
@@ -75,24 +79,11 @@ erDiagram
         string phone
         boolean is_default
         datetime created_at
-    }
-    ORDERS {
-        int order_id PK
-        int user_id FK
-        int address_id FK
-        datetime order_date
-        string status
-        decimal total
-        datetime created_at
         datetime updated_at
     }
-    ORDERITEMS {
-        int id PK
-        int order_id FK
-        int book_id FK
-        int quantity
-        decimal price
-        datetime created_at
+    GENRES {
+        int genre_id PK
+        string name
     }
     BOOKS {
         int book_id PK
@@ -103,14 +94,39 @@ erDiagram
         int stock
         string cover_url
         string description
-        string genre
+        int genre_id FK
         string format
         string language
-        datetime publication_date
-        string popularity
+        date publication_date
+        int popularity
         boolean is_available
         datetime created_at
         datetime updated_at
+    }
+    ORDERS {
+        int order_id PK
+        int user_id FK
+        string address
+        string city
+        string country
+        string phone
+        int status_id FK
+        decimal total
+        datetime order_date
+        datetime created_at
+        datetime updated_at
+    }
+    ORDER_ITEMS {
+        int order_items_id PK
+        int order_id FK
+        int book_id FK
+        int quantity
+        decimal price
+        datetime created_at
+    }
+    TBL_STATUS {
+        int status_id PK
+        enum status_name
     }
     REVIEWS {
         int review_id PK
@@ -125,12 +141,16 @@ erDiagram
     PAYMENTS {
         int payment_id PK
         int order_id FK
-        decimal amount
-        string method
-        datetime payment_date
-        string status
+        int pay_methods FK
+        int status_id FK
         string transaction_id
+        decimal amount
+        datetime payment_date
         datetime created_at
+    }
+    PAY_METHODS {
+        int pay_method_id PK
+        enum method_name
     }
 ```
 
