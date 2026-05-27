@@ -8,6 +8,10 @@ INSERT INTO tbl_status (status_id, status_name) VALUES
 (4, 'delivered'),
 (5, 'cancelled');
 
+INSERT INTO Roles (IdRoles, NameRol) VALUES
+(1, 'Admin'),
+(2, 'Cliente')
+
 -- 2. Insertar métodos de pago en pay_methods
 INSERT INTO pay_methods (pay_method_id, method_name) VALUES
 (1, 'credit_card'),
@@ -28,13 +32,13 @@ INSERT INTO genres (name) VALUES
 ('Misterio');
 
 -- 4. Insertar usuarios de ejemplo
-INSERT INTO users (username, email, password, first_name, last_name) VALUES
-('julieth_mogollon', 'julieth@example.com', 'hashed_password_1', 'Julieth', 'Mogollon'),
-('carlos_ruiz', 'carlos@example.com', 'hashed_password_2', 'Carlos', 'Ruiz'),
-('ana_lopez', 'ana@example.com', 'hashed_password_3', 'Ana', 'López'),
-('miguel_torres', 'miguel@example.com', 'hashed_password_4', 'Miguel', 'Torres'),
-('pedro_gomez', 'pedro@example.com', 'hashed_password_5', 'Pedro', 'Gómez'),
-('maria_sanchez', 'maria@example.com', 'hashed_password_6', 'María', 'Sánchez');
+INSERT INTO users (IdRoles, username, email, password, first_name, last_name) VALUES
+(1,'julieth_mogollon', 'julieth@example.com', 'hashed_password_1', 'Julieth', 'Mogollon'),
+(1,'carlos_ruiz', 'carlos@example.com', 'hashed_password_2', 'Carlos', 'Ruiz'),
+(2,'ana_lopez', 'ana@example.com', 'hashed_password_3', 'Ana', 'López'),
+(2,'miguel_torres', 'miguel@example.com', 'hashed_password_4', 'Miguel', 'Torres'),
+(1,'pedro_gomez', 'pedro@example.com', 'hashed_password_5', 'Pedro', 'Gómez'),
+(2,'maria_sanchez', 'maria@example.com', 'hashed_password_6', 'María', 'Sánchez');
 
 -- 5. Insertar libros (book_id, genre_id referenciado correctamente)
 INSERT INTO books (title, author, isbn, price, stock, cover_url, description, genre_id, format, language, publication_date, popularity, is_available) VALUES
