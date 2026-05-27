@@ -47,75 +47,96 @@ Code
 ## Modelo entidad-relación
 ```mermaid
 erDiagram
+
+    ROLES ||--|{ USERS : "assigned_to"
+
     USERS ||--o{ ADDRESSES : "has"
     USERS ||--o{ ORDERS : "places"
     USERS ||--o{ REVIEWS : "writes"
+
     ORDERS ||--|{ ORDER_ITEMS : "contains"
     ORDERS ||--|{ PAYMENTS : "pays"
+
     BOOKS ||--o{ ORDER_ITEMS : "ordered_in"
     BOOKS ||--o{ REVIEWS : "has"
+
     GENRES ||--|{ BOOKS : "classifies"
+
     TBL_STATUS ||--|{ ORDERS : "with"
     TBL_STATUS ||--|{ PAYMENTS : "has"
+
     PAY_METHODS ||--|{ PAYMENTS : "used_in"
 
-    USERS {
-        int user_id PK
-        string username
-        string email
-        string password
-        string first_name
-        string last_name
-        datetime created_at
-        datetime updated_at
+    ROLES {
+        int IdRoles PK
+        varchar NameRol
     }
+
+    USERS {
+        int UserId PK
+        int IdRoles FK
+        varchar Username
+        varchar Email
+        varchar Password
+        varchar First_Name
+        varchar Last_Name
+        datetime Created_at
+        datetime Created_by
+        datetime Updated_at
+        datetime Updated_by
+    }
+
     ADDRESSES {
         int address_id PK
         int user_id FK
-        string address
-        string city
-        string postal_code
-        string country
-        string phone
+        varchar address
+        varchar city
+        varchar postal_code
+        varchar country
+        varchar phone
         boolean is_default
         datetime created_at
         datetime updated_at
     }
+
     GENRES {
         int genre_id PK
-        string name
+        varchar name
     }
+
     BOOKS {
         int book_id PK
-        string title
-        string author
-        string isbn
+        varchar title
+        varchar author
+        varchar isbn
         decimal price
         int stock
-        string cover_url
-        string description
+        varchar cover_url
+        text description
         int genre_id FK
-        string format
-        string language
+        varchar format
+        varchar language
         date publication_date
         int popularity
         boolean is_available
         datetime created_at
         datetime updated_at
     }
+
     ORDERS {
         int order_id PK
         int user_id FK
-        string address
-        string city
-        string country
-        string phone
+        varchar address
+        varchar city
+        varchar country
+        varchar phone
         int status_id FK
         decimal total
         datetime order_date
         datetime created_at
         datetime updated_at
     }
+
     ORDER_ITEMS {
         int order_items_id PK
         int order_id FK
@@ -124,30 +145,34 @@ erDiagram
         decimal price
         datetime created_at
     }
+
     TBL_STATUS {
         int status_id PK
         enum status_name
     }
+
     REVIEWS {
         int review_id PK
         int book_id FK
         int user_id FK
         int rating
-        string comment
+        text comment
         boolean is_verified_purchase
         datetime review_date
         datetime created_at
     }
+
     PAYMENTS {
         int payment_id PK
         int order_id FK
-        int pay_methods FK
+        int pay_method_id FK
         int status_id FK
-        string transaction_id
+        varchar transaction_id
         decimal amount
         datetime payment_date
         datetime created_at
     }
+
     PAY_METHODS {
         int pay_method_id PK
         enum method_name
