@@ -18,16 +18,25 @@ CREATE TABLE genres (
     name VARCHAR(50) NOT NULL UNIQUE
 );
 
+CREATE TABLE Roles (
+IdRoles INT primary key,
+NameRol varchar(100)     --cliente o admin NOT NULL,
+
+);   
+
 -- 2. Tabla de Usuarios
-CREATE TABLE users (
-    user_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(100) UNIQUE NOT NULL,
-    email VARCHAR(150) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    first_name VARCHAR(100),
-    last_name VARCHAR(100),
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+CREATE TABLE Users (
+    UserId INT IDENTITY PRIMARY KEY,
+    IdRoles int FOREIGN KEY REFERENCES Roles(IdRoles) NOT NULL,
+    Username VARCHAR(100) UNIQUE NOT NULL,
+    Email VARCHAR(150) UNIQUE NOT NULL,
+    Password VARCHAR(255) NOT NULL,
+    First_Name VARCHAR(100),
+    Last_Name VARCHAR(100),
+    Created_at DATETIME,
+    Created_by DATETIME,
+    Updated_at DATETIME,
+    Updated_by DATETIME
 );
 
 -- 3. Tabla de Direcciones
