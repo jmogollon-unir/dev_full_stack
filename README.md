@@ -23,7 +23,6 @@ Plataforma e-commerce moderna para la venta de libros físicos y digitales, desa
 
 ## 📁 Estructura del Proyecto
 
-
 Code
 
 ## 🎯 Funcionalidades Principales
@@ -44,115 +43,61 @@ Code
 
 - 
 
-## Modelo entidad-relación
-```mermaid
-erDiagram
-    USERS ||--o{ ADDRESSES : "has"
-    USERS ||--o{ ORDERS : "places"
-    USERS ||--o{ REVIEWS : "writes"
-    ORDERS ||--|{ ORDER_ITEMS : "contains"
-    ORDERS ||--|{ PAYMENTS : "pays"
-    BOOKS ||--o{ ORDER_ITEMS : "ordered_in"
-    BOOKS ||--o{ REVIEWS : "has"
-    GENRES ||--|{ BOOKS : "classifies"
-    TBL_STATUS ||--|{ ORDERS : "with"
-    TBL_STATUS ||--|{ PAYMENTS : "has"
-    PAY_METHODS ||--|{ PAYMENTS : "used_in"
-
-    USERS {
-        int user_id PK
-        string username
-        string email
-        string password
-        string first_name
-        string last_name
-        datetime created_at
-        datetime updated_at
-    }
-    ADDRESSES {
-        int address_id PK
-        int user_id FK
-        string address
-        string city
-        string postal_code
-        string country
-        string phone
-        boolean is_default
-        datetime created_at
-        datetime updated_at
-    }
-    GENRES {
-        int genre_id PK
-        string name
-    }
-    BOOKS {
-        int book_id PK
-        string title
-        string author
-        string isbn
-        decimal price
-        int stock
-        string cover_url
-        string description
-        int genre_id FK
-        string format
-        string language
-        date publication_date
-        int popularity
-        boolean is_available
-        datetime created_at
-        datetime updated_at
-    }
-    ORDERS {
-        int order_id PK
-        int user_id FK
-        string address
-        string city
-        string country
-        string phone
-        int status_id FK
-        decimal total
-        datetime order_date
-        datetime created_at
-        datetime updated_at
-    }
-    ORDER_ITEMS {
-        int order_items_id PK
-        int order_id FK
-        int book_id FK
-        int quantity
-        decimal price
-        datetime created_at
-    }
-    TBL_STATUS {
-        int status_id PK
-        enum status_name
-    }
-    REVIEWS {
-        int review_id PK
-        int book_id FK
-        int user_id FK
-        int rating
-        string comment
-        boolean is_verified_purchase
-        datetime review_date
-        datetime created_at
-    }
-    PAYMENTS {
-        int payment_id PK
-        int order_id FK
-        int pay_methods FK
-        int status_id FK
-        string transaction_id
-        decimal amount
-        datetime payment_date
-        datetime created_at
-    }
-    PAY_METHODS {
-        int pay_method_id PK
-        enum method_name
-    }
+## 🔄Flujo de comunicación entre microservicios (Catalogue - Orders)
+```text
+┌─────────────────────────────────────────────────────────────┐
+│                          FRONTEND                           │
+└───────────────────────┬─────────────────────────────────────┘
+                        │
+            ┌───────────┼───────────┐
+            │           │           │
+            ▼           ▼           ▼
+       ┌─────────┐ ┌──────────┐ ┌────────┐
+       │Catálogo │ │ Detalle  │ │Carrito │
+       │(GET)    │ │(GET)     │ │(POST)  │
+       └────┬────┘ └────┬─────┘ └───┬────┘
+            │           │           │
+            └───────────┼───────────┘
+                        │
+                        ▼
+            ┌────────────────────────────┐
+            │    MICROSERVICIO 1         │
+            │       CATALOGUE            │
+            │         :8081              │
+            │   ✓ GET /books             │
+            │   ✓ GET /books/:title      │
+            │   ✓ GET /books/:author     │
+            │   ✓ GET /books/:popularity │
+            │   ✓ POST /books            │
+            │   ✓ PATCH /books/:id       │
+            │   ✓ DELETE /books/:id      │
+            └───────────┬────────────────┘
+                        │
+                DB: books_catalogue
+            └───────────────────────┘
+                        │
+                        │ Validación
+                        │ (stock, visible)
+                        ▼
+            ┌───────────────────────┐
+            │    MICROSERVICIO 2    │
+            │        ORDERS         │
+            │         :8082         │
+            │   ✓ POST /orders      │
+            │   ✓ GET /orders/:id   │
+            └───────────┬───────────┘
+                        │
+                 DB: books_orders
+            └───────────────────────┘
 ```
+
+## Modelo entidad-relación
+
+### Microservicio Catalogue
+![Diagrama de Base de Datos](docs/books_catalogue.png)
+
+### Microservicio Orders
+![Diagrama de Base de Datos](docs/books_orders.png)
 
 ## 🛠️ Instalación y Configuración
 
@@ -170,36 +115,31 @@ git clone git@github.com:jmogollon-unir/dev_full_stack.git
 cd dev_full_stack
 ```
 
-## Crear base de datos local con docker
+## Crear bases de datos local con docker
 
 ```bash
 docker pull mysql
 ```
 
+### Microservicio Catalogue
 ```bash
-docker run -p 3306:3306 --name db-relatosdepapel -e MYSQL_ROOT_PASSWORD=mysql -d mysql:latest
+docker run -p 3307:3306 --name books_catalogue -e MYSQL_ROOT_PASSWORD=mysql -d mysql:latest
+```
+
+### Microservicio Orders
+```bash
+docker run -p 3308:3306 --name books_orders -e MYSQL_ROOT_PASSWORD=mysql -d mysql:latest
 ```
 
 ### Configurar base desde dataGrip
 
-#### Crear base de datos MySQL
+#### Microservicio Catalogue
 
-- Crear base de datos local con usuario *root* y password *mysql*
+- Con ayuda del file **catalogue/books_catalogue.sql** se pueden crear las tablas de la base de datos y completar con datos de mocks
 
-#### Crear schema base de datos MySQL
+#### Microservicio Orders
 
-```bash
-CREATE SCHEMA IF NOT EXISTS books_catalogue;
-USE books_catalogue;
-```
-
-#### Crear tablas
-
-- Copiar y ejecuta **books_catalogue.sql** para crear las tablas de la base de datos acorde con el diagrama entidad-relación
-
-#### Insertar datos
-
-- Copiar y ejecuta **data.sql** para llenar las tablas de la base de datos con datos mocks
+- Con ayuda del file **orders/books_orders.sql** se pueden crear las tablas de la base de datos y completar con datos de mocks
 
 ## Iniciar servidor de desarrollo desde intelliJ IDEA
 

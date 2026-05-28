@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ba1105ce-3e63-4cf4-be7a-6bbe444a7267" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/relatos_papel/api_gateway/ApiGatewayApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/src/test/java/com/relatos_papel/api_gateway/ApiGatewayApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/CatalogueApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/common/BookDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/common/SaveBookDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/create/CreateBookCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/create/CreateBookCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/delete/DeleteBookCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/delete/DeleteBookCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/search/SearchBooksQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/search/SearchBooksQueryHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/update/UpdateBookCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/update/UpdateBookCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/common/mediator/Mediator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/common/mediator/Request.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/common/mediator/RequestHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/domain/model/Book.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/domain/model/Genre.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/domain/model/enums/BookFormat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/domain/model/enums/BookFormatConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/infrastructure/repositories/BookRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/infrastructure/repositories/GenreRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/presentation/controller/BookController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalogue/src/test/java/com/relatos_papel/catalogue/CatalogueApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka-server/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka-server/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka-server/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka-server/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka-server/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka-server/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka-server/src/main/java/com/relatos_papel/eureka_server/EurekaServerApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka-server/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka-server/src/test/java/com/relatos_papel/eureka_server/EurekaServerApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/old/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/old/books_catalogue.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/old/example_queries.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/old/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/old/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/books_orders.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/example_queries.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/OrdersApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/src/test/java/com/relatos_papel/orders/OrdersApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HELP.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/books_catalogue.sql" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/books_catalogue.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/old/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example_queries.sql" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/example_queries.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/mvnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/mvnw.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/old/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unir/relatosdepapel/RelatosdepapelApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/old/src/main/java/com/unir/relatosdepapel/RelatosdepapelApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unir/relatosdepapel/controller/PingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/old/src/main/java/com/unir/relatosdepapel/controller/PingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/old/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/unir/relatosdepapel/RelatosdepapelApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/old/src/test/java/com/unir/relatosdepapel/RelatosdepapelApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yaml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3DbCKxMnXZ0LPXsgL9n5131fhJD" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "SHELLCHECK.PATH": "/Users/juliethmogollon/Library/Application Support/JetBrains/IntelliJIdea2026.1/plugins/Shell Script/shellcheck",
+    "Spring Boot.CatalogueApplication.executor": "Run",
+    "Spring Boot.RelatosdepapelApplication.executor": "Run",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/juliethmogollon/Documents/Files/Documentos/U-Unir/Cursos/Master/Dev/Repo/dev_full_stack/orders/src/main/resources",
+    "nodejs_package_manager_path": "npm"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql_aurora"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/orders/src/main/resources" />
+      <recent name="$PROJECT_DIR$/orders" />
+      <recent name="$PROJECT_DIR$/catalogue" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/docs" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+    <option name="configurationStatuses">
+      <map>
+        <entry key="SpringBootApplicationConfigurationType">
+          <value>
+            <map>
+              <entry key="CatalogueApplication" value="STOPPED" />
+            </map>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.CatalogueApplication">
+    <configuration name="CatalogueApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UnknownPolicyInFreeMode" />
+      <module name="catalogue" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.relatos_papel.catalogue.CatalogueApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.relatos_papel.catalogue.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RelatosdepapelApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UnknownPolicyInFreeMode" />
+      <module name="relatosdepapel" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.unir.relatosdepapel.RelatosdepapelApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.unir.relatosdepapel.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.CatalogueApplication" />
+        <item itemvalue="Spring Boot.RelatosdepapelApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ba1105ce-3e63-4cf4-be7a-6bbe444a7267" name="Changes" comment="" />
+      <created>1778541322299</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1778541322299</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

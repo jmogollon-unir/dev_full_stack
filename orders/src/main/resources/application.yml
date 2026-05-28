@@ -1,0 +1,24 @@
+server:
+  port: 8082 # El puerto de este microservicio
+
+spring:
+  application:
+    name: orders
+  datasource:
+    url: jdbc:mysql://localhost:3308/books_orders?useSSL=false&serverTimezone=UTC
+    username: root
+    password: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # Validará o creará/actualizará tu tabla en base a la entidad
+    show-sql: true # Para ver las consultas en consola
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    # Forzamos que el ID de registro en Eureka sea con la IP y el puerto
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
