@@ -18,12 +18,13 @@ public class BookDto {
     private Integer stock;
     private String coverUrl;
     private String description;
-    private String genreName; // Devolvemos el nombre, es más útil para el frontend
+    private String genreName;
     private Long genreId;
     private String format;
     private String language;
     private LocalDate publicationDate;
     private Integer popularity;
+    private Boolean isAvailable; // expuesto en la API para que orders pueda validar visibilidad
 
     public static BookDto mapToDto(Book book) {
         return BookDto.builder()
@@ -41,6 +42,7 @@ public class BookDto {
                 .language(book.getLanguage())
                 .publicationDate(book.getPublicationDate())
                 .popularity(book.getPopularity())
+                .isAvailable(book.getIsAvailable()) // ← campo agregado
                 .build();
     }
 }
