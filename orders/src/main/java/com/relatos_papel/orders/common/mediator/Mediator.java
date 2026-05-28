@@ -16,8 +16,7 @@ public class Mediator {
     Map<? extends Class<?>, RequestHandler<?, ?>> requestHandlerMap;
 
     public Mediator(List<RequestHandler<?, ?>> requestHandlers) {
-        requestHandlerMap = requestHandlers.stream()
-                .collect(Collectors.toMap(RequestHandler::getRequestType, Function.identity()));
+        requestHandlerMap = requestHandlers.stream().collect(Collectors.toMap(RequestHandler::getRequestType, Function.identity()));
     }
 
     public <R, T extends Request<R>> R dispatch(T request) {
@@ -33,4 +32,6 @@ public class Mediator {
     public <R, T extends Request<R>> void dispatchAsync(T request) {
         this.dispatch(request);
     }
+
+
 }
