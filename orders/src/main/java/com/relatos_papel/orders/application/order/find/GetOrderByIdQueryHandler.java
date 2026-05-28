@@ -25,7 +25,7 @@ public class GetOrderByIdQueryHandler implements RequestHandler<GetOrderByIdQuer
         var order = orderRepository.findById(request.getOrderId())
                 .orElseThrow(() -> new RuntimeException("Pedido no encontrado: " + request.getOrderId()));
 
-        // Enriquecer ítems con el título del libro desde catalogue-service
+        // Enriquecer ítems con el título del libro desde catalogue
         Map<Long, String> bookTitles = fetchBookTitles();
 
         OrderDto dto = OrderDto.mapToDto(order);

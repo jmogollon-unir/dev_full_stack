@@ -5,7 +5,7 @@ spring:
   application:
     name: orders
   datasource:
-    url: jdbc:mysql://localhost:3308/books_orders?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3308/books_orders?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
     password: mysql
     driver-class-name: com.mysql.cj.jdbc.Driver

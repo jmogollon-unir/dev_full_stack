@@ -12,7 +12,7 @@ public class OrderItemDto {
 
     private Long orderItemsId;
     private Long bookId;
-    private String bookTitle;   // enriquecido via Feign desde catalogue-service
+    private String bookTitle;   // enriquecido via Feign desde catalogue
     private Integer quantity;
     private BigDecimal price;
     private BigDecimal subtotal;

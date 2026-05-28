@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -16,6 +17,9 @@ public class SearchBooksQuery implements Request<List<BookDto>> {
     private String title;
     private String author;
     private String isbn;
-    private String category; // Nombre del género
+    private Long category; // ID del género
+    private LocalDate publicationDate;
+    private Integer rating; // de 1 a 5
+    private Boolean visible; // isAvailable
     private Integer popularity;
 }

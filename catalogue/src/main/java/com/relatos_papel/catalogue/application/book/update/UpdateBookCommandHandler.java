@@ -22,6 +22,7 @@ public class UpdateBookCommandHandler implements RequestHandler<UpdateBookComman
                 .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
 
         var data = request.getData();
+        // PATCH: actualización parcial, solo actualiza campos no nulos
         if (data.getTitle() != null) book.setTitle(data.getTitle());
         if (data.getAuthor() != null) book.setAuthor(data.getAuthor());
         if (data.getIsbn() != null) book.setIsbn(data.getIsbn());

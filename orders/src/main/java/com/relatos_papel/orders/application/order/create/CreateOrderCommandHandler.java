@@ -2,6 +2,7 @@ package com.relatos_papel.orders.application.order.create;
 
 import com.relatos_papel.orders.application.order.common.OrderDto;
 import com.relatos_papel.orders.application.order.common.SaveOrderDto;
+import com.relatos_papel.orders.application.order.create.event.OrderCreatedEvent;
 import com.relatos_papel.orders.common.mediator.RequestHandler;
 import com.relatos_papel.orders.domain.model.Order;
 import com.relatos_papel.orders.domain.model.OrderItem;
@@ -9,6 +10,7 @@ import com.relatos_papel.orders.infrastructure.feign.BookSummaryDto;
 import com.relatos_papel.orders.infrastructure.feign.CatalogueClient;
 import com.relatos_papel.orders.infrastructure.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -22,19 +24,20 @@ import java.util.stream.Collectors;
 public class CreateOrderCommandHandler implements RequestHandler<CreateOrderCommand, OrderDto> {
 
     private final OrderRepository orderRepository;
-    private final CatalogueClient catalogueClient; // llamada HTTP a catalogue-service via Eureka
+    private final CatalogueClient catalogueClient; // llamada HTTP a catalogue via Eureka
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
     public OrderDto handle(CreateOrderCommand request) {
         SaveOrderDto dto = request.getData();
 
-        // ── VALIDACIÓN CONTRA CATALOGUE-SERVICE ──────────────────────────────
-        // Traemos todos los libros del catálogo y construimos un mapa bookId → libro
         List<BookSummaryDto> allBooks = catalogueClient.getAllBooks();
+
         Map<Long, BookSummaryDto> bookMap = allBooks.stream()
                 .collect(Collectors.toMap(BookSummaryDto::getBookId, b -> b));
 
         for (SaveOrderDto.OrderItemInput input : dto.getItems()) {
+
             BookSummaryDto book = bookMap.get(input.getBookId());
 
             // 1. El libro debe existir en el catálogo
@@ -85,6 +88,9 @@ public class CreateOrderCommandHandler implements RequestHandler<CreateOrderComm
         order.setTotal(total);
 
         Order saved = orderRepository.save(order);
+
+        eventPublisher.publishEvent(new OrderCreatedEvent(this, dto.getItems()));
+
         return OrderDto.mapToDto(saved);
     }
 

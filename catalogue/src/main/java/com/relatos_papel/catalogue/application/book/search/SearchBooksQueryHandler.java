@@ -25,8 +25,15 @@ public class SearchBooksQueryHandler implements RequestHandler<SearchBooksQuery,
         Specification<Book> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            // REGLA DE NEGOCIO: Nunca devolver libros ocultos
-            predicates.add(cb.isTrue(root.get("isAvailable")));
+            // Si visible (visible=true) se especifica, filtrar por isAvailable
+            // Si visible=false, mostrar solo libros ocultos
+            // Si no se especifica visible, mostrar solo libros disponibles (comportamiento por defecto)
+            if (request.getVisible() != null) {
+                predicates.add(cb.equal(root.get("isAvailable"), request.getVisible()));
+            } else {
+                // REGLA DE NEGOCIO por defecto: Nunca devolver libros ocultos
+                predicates.add(cb.isTrue(root.get("isAvailable")));
+            }
 
             if (request.getTitle() != null)
                 predicates.add(cb.like(cb.lower(root.get("title")), "%" + request.getTitle().toLowerCase() + "%"));
@@ -40,9 +47,15 @@ public class SearchBooksQueryHandler implements RequestHandler<SearchBooksQuery,
             if (request.getPopularity() != null)
                 predicates.add(cb.equal(root.get("popularity"), request.getPopularity()));
 
+            if (request.getPublicationDate() != null)
+                predicates.add(cb.equal(root.get("publicationDate"), request.getPublicationDate()));
+
+            if (request.getRating() != null)
+                predicates.add(cb.equal(root.get("popularity"), request.getRating())); // Usar popularity como rating
+
             if (request.getCategory() != null) {
-                // Join con la tabla Genre para buscar por nombre de categoría
-                predicates.add(cb.like(cb.lower(root.get("genre").get("name")), "%" + request.getCategory().toLowerCase() + "%"));
+                // Join con la tabla Genre para buscar por genreId
+                predicates.add(cb.equal(root.get("genre").get("genreId"), request.getCategory()));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));

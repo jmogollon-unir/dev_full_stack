@@ -13,7 +13,7 @@ spring:
               enabled: false
           routes:
             - id: catalogue_service_route
-              uri: lb://catalogue-service
+              uri: lb://catalogue
               predicates:
                 - Path=/api/books,/api/books/**
 

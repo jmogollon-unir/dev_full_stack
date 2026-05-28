@@ -18,7 +18,7 @@ public enum BookFormat {
     public static BookFormat fromValue(String value) {
         if (value == null) return null;
         for (BookFormat format : values()) {
-            if (format.value.equals(value)) {
+            if (format.value.equalsIgnoreCase(value) || format.name().equalsIgnoreCase(value)) {
                 return format;
             }
         }
