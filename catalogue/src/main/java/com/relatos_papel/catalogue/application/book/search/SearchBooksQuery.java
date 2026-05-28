@@ -17,7 +17,8 @@ public class SearchBooksQuery implements Request<List<BookDto>> {
     private String title;
     private String author;
     private String isbn;
-    private Long category; // ID del género
+    private Integer category;
+    private String categoryName;
     private LocalDate publicationDate;
     private Integer rating; // de 1 a 5
     private Boolean visible; // isAvailable

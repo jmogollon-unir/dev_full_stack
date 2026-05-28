@@ -13,7 +13,7 @@ public class SaveBookDto {
     private Integer stock;
     private String coverUrl;
     private String description;
-    private Long genreId;
+    private Integer genreId;
     private String format;
     private String language;
     private LocalDate publicationDate;

@@ -1,85 +1,96 @@
 package com.relatos_papel.orders.application.order.create;
 
 import com.relatos_papel.orders.application.order.common.OrderDto;
+import com.relatos_papel.orders.application.order.common.OrderEnrichmentService;
 import com.relatos_papel.orders.application.order.common.SaveOrderDto;
-import com.relatos_papel.orders.application.order.create.event.OrderCreatedEvent;
+import com.relatos_papel.orders.common.exception.OrderValidationException;
+import com.relatos_papel.orders.common.exception.ResourceNotFoundException;
 import com.relatos_papel.orders.common.mediator.RequestHandler;
+import com.relatos_papel.orders.domain.model.Address;
 import com.relatos_papel.orders.domain.model.Order;
 import com.relatos_papel.orders.domain.model.OrderItem;
 import com.relatos_papel.orders.infrastructure.feign.BookSummaryDto;
 import com.relatos_papel.orders.infrastructure.feign.CatalogueClient;
+import com.relatos_papel.orders.infrastructure.feign.StockDecreaseDto;
+import com.relatos_papel.orders.infrastructure.repositories.AddressRepository;
 import com.relatos_papel.orders.infrastructure.repositories.OrderRepository;
+import com.relatos_papel.orders.infrastructure.repositories.UserRepository;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class CreateOrderCommandHandler implements RequestHandler<CreateOrderCommand, OrderDto> {
 
     private final OrderRepository orderRepository;
-    private final CatalogueClient catalogueClient; // llamada HTTP a catalogue via Eureka
-    private final ApplicationEventPublisher eventPublisher;
+    private final UserRepository userRepository;
+    private final AddressRepository addressRepository;
+    private final CatalogueClient catalogueClient;
+    private final OrderEnrichmentService orderEnrichmentService;
 
     @Override
+    @Transactional
     public OrderDto handle(CreateOrderCommand request) {
         SaveOrderDto dto = request.getData();
 
-        List<BookSummaryDto> allBooks = catalogueClient.getAllBooks();
+        if (dto.getUserId() == null) {
+            throw new OrderValidationException("El userId es obligatorio.");
+        }
 
-        Map<Long, BookSummaryDto> bookMap = allBooks.stream()
-                .collect(Collectors.toMap(BookSummaryDto::getBookId, b -> b));
+        if (dto.getItems() == null || dto.getItems().isEmpty()) {
+            throw new OrderValidationException("El pedido debe contener al menos un libro.");
+        }
+
+        userRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró el usuario con ID " + dto.getUserId()));
+
+        Address address = addressRepository.findByUserIdAndIsDefaultTrue(dto.getUserId())
+                .or(() -> addressRepository.findFirstByUserIdOrderByAddressIdAsc(dto.getUserId()))
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró una dirección para el usuario con ID " + dto.getUserId()));
+
+        List<OrderItem> items = new ArrayList<>();
 
         for (SaveOrderDto.OrderItemInput input : dto.getItems()) {
+            BookSummaryDto book = fetchBook(input.getBookId());
 
-            BookSummaryDto book = bookMap.get(input.getBookId());
-
-            // 1. El libro debe existir en el catálogo
-            if (book == null) {
-                throw new RuntimeException(
-                        "El libro con ID " + input.getBookId() + " no existe en el catálogo.");
-            }
-
-            // 2. El libro no debe estar oculto (isAvailable = false)
             if (Boolean.FALSE.equals(book.getIsAvailable())) {
-                throw new RuntimeException(
-                        "El libro '" + book.getTitle() + "' no está disponible.");
+                throw new OrderValidationException(
+                        "El libro '" + book.getTitle() + "' no está disponible para la venta.");
             }
 
-            // 3. Debe haber stock suficiente
             if (book.getStock() == null || book.getStock() < input.getQuantity()) {
-                throw new RuntimeException(
-                        "Stock insuficiente para '" + book.getTitle() + "'. "
-                        + "Disponible: " + (book.getStock() != null ? book.getStock() : 0)
-                        + ", solicitado: " + input.getQuantity());
+                throw new OrderValidationException(
+                        "Stock insuficiente para '" + book.getTitle() + "'. Disponible: "
+                                + (book.getStock() != null ? book.getStock() : 0)
+                                + ", solicitado: " + input.getQuantity());
             }
+
+            OrderItem item = new OrderItem();
+            item.setBookId(input.getBookId());
+            item.setQuantity(input.getQuantity());
+            item.setPrice(book.getPrice());
+            items.add(item);
         }
-        // ─────────────────────────────────────────────────────────────────────
 
         Order order = new Order();
         order.setUserId(dto.getUserId());
-        order.setAddress(dto.getAddress());
-        order.setCity(dto.getCity());
-        order.setCountry(dto.getCountry());
-        order.setPhone(dto.getPhone());
-        order.setStatusId(1); // pending — siempre arranca en estado 1
+        order.setAddress(address.getAddress());
+        order.setCity(address.getCity());
+        order.setCountry(address.getCountry());
+        order.setPhone(address.getPhone());
+        order.setStatusId(1);
         order.setOrderDate(LocalDateTime.now());
 
-        List<OrderItem> items = dto.getItems().stream().map(input -> {
-            OrderItem item = new OrderItem();
+        for (OrderItem item : items) {
             item.setOrder(order);
-            item.setBookId(input.getBookId());
-            item.setQuantity(input.getQuantity());
-            item.setPrice(input.getPrice());
-            return item;
-        }).toList();
-
+        }
         order.setItems(items);
 
         BigDecimal total = items.stream()
@@ -89,9 +100,38 @@ public class CreateOrderCommandHandler implements RequestHandler<CreateOrderComm
 
         Order saved = orderRepository.save(order);
 
-        eventPublisher.publishEvent(new OrderCreatedEvent(this, dto.getItems()));
+        for (SaveOrderDto.OrderItemInput input : dto.getItems()) {
+            decreaseBookStock(input.getBookId(), input.getQuantity());
+        }
 
-        return OrderDto.mapToDto(saved);
+        OrderDto result = OrderDto.mapToDto(saved);
+        return orderEnrichmentService.enrich(result);
+    }
+
+    private void decreaseBookStock(Integer bookId, Integer quantity) {
+        try {
+            StockDecreaseDto dto = new StockDecreaseDto();
+            dto.setQuantity(quantity);
+            catalogueClient.decreaseBookStock(bookId, dto);
+        } catch (FeignException.BadRequest e) {
+            throw new OrderValidationException("No se pudo actualizar el stock del libro con ID " + bookId + ".");
+        } catch (FeignException.NotFound e) {
+            throw new OrderValidationException("El libro con ID " + bookId + " no existe en el catálogo.");
+        } catch (FeignException e) {
+            throw new OrderValidationException("No se pudo actualizar el stock del libro con ID " + bookId
+                    + " en el microservicio catalogue.");
+        }
+    }
+
+    private BookSummaryDto fetchBook(Integer bookId) {
+        try {
+            return catalogueClient.getBookById(bookId);
+        } catch (FeignException.NotFound e) {
+            throw new OrderValidationException("El libro con ID " + bookId + " no existe en el catálogo.");
+        } catch (FeignException e) {
+            throw new OrderValidationException("No se pudo validar el libro con ID " + bookId
+                    + " en el microservicio catalogue.");
+        }
     }
 
     @Override

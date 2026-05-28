@@ -1,5 +1,6 @@
 package com.relatos_papel.catalogue.application.book.delete;
 
+import com.relatos_papel.catalogue.common.exception.ResourceNotFoundException;
 import com.relatos_papel.catalogue.common.mediator.RequestHandler;
 import com.relatos_papel.catalogue.infrastructure.repositories.BookRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,9 @@ public class DeleteBookCommandHandler implements RequestHandler<DeleteBookComman
 
     @Override
     public Void handle(DeleteBookCommand request) {
+        if (!bookRepository.existsById(request.getBookId())) {
+            throw new ResourceNotFoundException("Libro no encontrado: " + request.getBookId());
+        }
         bookRepository.deleteById(request.getBookId());
         return null;
     }

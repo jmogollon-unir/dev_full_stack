@@ -1,3 +1,5 @@
+-- Esquema con IDs INT (alineado con entidades JPA Integer).
+-- Si vienes de BIGINT: mysql ... < reset_books_catalogue.sql && mysql ... < books_catalogue.sql
 -- ========================================
 -- CREAR SCHEMA
 -- ========================================
@@ -8,7 +10,7 @@ USE books_catalogue;
 -- TABLA: GENRES (Catálogo)
 -- ========================================
 CREATE TABLE genres (
-                        genre_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                        genre_id INT AUTO_INCREMENT PRIMARY KEY,
                         name VARCHAR(50) NOT NULL UNIQUE,
                         INDEX idx_name (name)
 );
@@ -17,7 +19,7 @@ CREATE TABLE genres (
 -- TABLA: BOOKS (Catálogo Principal)
 -- ========================================
 CREATE TABLE books (
-                       book_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                       book_id INT AUTO_INCREMENT PRIMARY KEY,
                        title VARCHAR(255) NOT NULL,
                        author VARCHAR(255) NOT NULL,
                        isbn VARCHAR(20) NOT NULL UNIQUE,
@@ -25,7 +27,7 @@ CREATE TABLE books (
                        stock INT NOT NULL DEFAULT 0,
                        cover_url LONGTEXT,
                        description LONGTEXT,
-                       genre_id BIGINT NOT NULL,
+                       genre_id INT NOT NULL,
                        format VARCHAR(255) DEFAULT 'AMBOS', -- Mapea el Enum BookFormat.AMBOS por defecto
                        language VARCHAR(50) DEFAULT 'Español',
                        publication_date DATE,
@@ -39,24 +41,6 @@ CREATE TABLE books (
                        INDEX idx_price (price),
                        INDEX idx_publication_date (publication_date),
                        INDEX idx_popularity (popularity)
-);
-
--- ========================================
--- TABLA: REVIEWS (Reseñas - Información de Catálogo)
--- ========================================
-CREATE TABLE reviews (
-                         review_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                         book_id BIGINT NOT NULL,
-                         user_id BIGINT NOT NULL,
-                         rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5),
-                         comment LONGTEXT,
-                         is_verified_purchase BOOLEAN DEFAULT FALSE,
-                         review_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                         FOREIGN KEY (book_id) REFERENCES books(book_id) ON DELETE CASCADE,
-                         INDEX idx_book_id (book_id),
-                         INDEX idx_user_id (user_id),
-                         INDEX idx_rating (rating)
 );
 
 -- ========================================
@@ -90,24 +74,3 @@ INSERT INTO books (title, author, isbn, price, stock, cover_url, description, ge
                                                                                                                                                           ('La Sombra del Viento', 'Carlos Ruiz Zafón', '978-0-06-250399-9', 23.99, 18, 'https://upload.wikimedia.org/wikipedia/commons/1/1a/Shadow_Cosplay_Photograph_from_Comic-Con_International_San_Diego.jpg', 'Una historia de amor, intriga y libros en la Barcelona de posguerra. Daniel descubre un libro que cambiará su vida en el Cementerio de los Libros Olvidados.', 9, 'AMBOS', 'Español', '2001-04-12', 50, TRUE),
                                                                                                                                                           ('El Señor de los Anillos', 'J.R.R. Tolkien', '978-0-544-00346-1', 34.99, 25, 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/El_Se%C3%B1or_de_los_Anillos_lectura.jpg/960px-El_Se%C3%B1or_de_los_Anillos_lectura.jpg', 'La épica aventura que definió el género de fantasía moderna. Frodo Bolsón debe destruir el Anillo Único.', 7, 'AMBOS', 'Español', '1954-07-29', 98, TRUE);
 
--- ========================================
--- DML: INSERTAR RESEÑAS
--- ========================================
-INSERT INTO reviews (book_id, user_id, rating, comment, is_verified_purchase, review_date) VALUES
-                                                                                               (1, 1, 5, 'Una obra maestra absoluta. La narrativa de García Márquez es simplemente magistral.', TRUE, '2026-04-19'),
-                                                                                               (1, 2, 4, 'Me encantó la mezcla de lo mágico y lo real. Un libro que te atrapa desde la primera página.', TRUE, '2026-05-01'),
-                                                                                               (2, 3, 5, 'Una lectura inquietante pero esencial. Orwell realmente sabía cómo crear una atmósfera opresiva.', TRUE, '2026-04-22'),
-                                                                                               (2, 4, 4, 'Me hizo reflexionar sobre la sociedad actual y el poder de los medios de comunicación.', TRUE, '2026-05-03'),
-                                                                                               (4, 5, 5, 'Una obra monumental que combina humor, tragedia y una profunda reflexión sobre la naturaleza humana.', TRUE, '2026-04-28'),
-                                                                                               (4, 6, 5, 'Me encantó la riqueza de los personajes y la sátira social. Un clásico que merece ser leído por todos.', TRUE, '2026-05-07'),
-                                                                                               (6, 1, 4, 'Una historia inspiradora que me motivó a perseguir mis propios sueños.', TRUE, '2026-05-03'),
-                                                                                               (6, 2, 3, 'Me gustó la simplicidad del mensaje, aunque esperaba algo más profundo.', TRUE, '2026-05-12'),
-                                                                                               (7, 3, 5, 'Una historia mágica que me hizo soñar despierta. La imaginación de Rowling es increíble.', TRUE, '2026-05-05'),
-                                                                                               (7, 4, 5, 'Me encantó la construcción del mundo y los personajes. Un libro que se disfruta a cualquier edad.', TRUE, '2026-05-15'),
-                                                                                               (8, 6, 4, 'Una lectura desafiante pero gratificante. La estructura no lineal me hizo reflexionar sobre la narrativa.', TRUE, '2026-05-07'),
-                                                                                               (8, 5, 3, 'Me gustó la experimentación, aunque a veces me perdía entre los saltos temporales.', TRUE, '2026-05-17'),
-                                                                                               (9, 1, 5, 'Una historia fascinante que combina un misterio intrigante con una profunda reflexión filosófica.', TRUE, '2026-05-01'),
-                                                                                               (9, 4, 5, 'Me encantó la ambientación medieval y la complejidad de los personajes. Un libro que se disfruta en cada lectura.', TRUE, '2026-05-10'),
-                                                                                               (10, 2, 4, 'Una historia envolvente con una atmósfera única. Me encantó la mezcla de misterio y romance.', TRUE, '2026-05-12'),
-                                                                                               (10, 1, 3, 'Me gustó la ambientación de Barcelona y la trama intrigante, aunque esperaba un poco más de profundidad en los personajes.', TRUE, '2026-05-22'),
-                                                                                               (11, 4, 5, 'Una historia épica que me hizo soñar con mundos fantásticos. La riqueza del universo de Tolkien es impresionante.', TRUE, '2026-05-15');

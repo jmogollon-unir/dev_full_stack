@@ -1,156 +1,187 @@
 ## 🏆 Entregales actividad 2: Laboratorio. Desarrollo back-end: microservicios con Java y Spring
 
-### Enlaces de la entrega  🔗 
+### 🔗 Enlaces de la entrega
 
-#### [Vídeo-memoria]()
+- [Vídeo-memoria]()
 
-#### [URL del proyecto despleago]()
+---
 
 # 📚 Relatos de Papel - E-Commerce de Libros
 
-Plataforma e-commerce moderna para la venta de libros físicos y digitales, desarrollada con **Java** y **SpringBoot**, como proyecto del Máster Universitario en Ingeniería de Software y Sistemas Informáticos de UNIR.
+Plataforma e-commerce moderna para la venta de libros físicos y digitales, desarrollada con **Java** y **Spring Boot** como proyecto del Máster Universitario en Ingeniería de Software y Sistemas Informáticos (UNIR).
+
+Arquitectura de **dos microservicios** independientes (`catalogue` y `orders`), cada uno con su propia base de datos MySQL, registro en **Eureka** y comunicación entre servicios.
 
 ## 🚀 Stack Tecnológico
 
-### Backend
-
-- **Java 26**
-- **SpringBoot**
-
-### Herramientas de Desarrollo
-
-- 
+| Capa | Tecnología |
+|------|------------|
+| Lenguaje | Java 25 |
+| Framework | Spring Boot 4.0.6, Spring Cloud 2025.1.1 |
+| Persistencia | Spring Data JPA, Hibernate, MySQL |
+| Microservicios | Netflix Eureka |
+| Build | Maven (`mvnw` incluido) |
+| Base de datos | MySQL 8 (Docker) |
 
 ## 📁 Estructura del Proyecto
 
-Code
+```text
+.
+├── eureka-server/
+│   └── src/main/java/...
+├── catalogue/                 # Microservicio de catálogo (:8081)
+│   ├── books_catalogue.sql    # DDL + datos de prueba
+│   ├── example_queries.sql    # DML
+│   └── src/main/java/.../+/
+├── orders/                    # Microservicio de pedidos (:8082)
+│   ├── books_orders.sql.      # DDL + datos de prueba
+│   ├── example_queries.sql    # DML
+│   └── src/main/java/.../orders/
+├── docs/
+│   ├── books_catalogue.png    # Diagrama ER catalogue
+│   ├── books_orders.png       # Diagrama ER orders
+│   └── Backend - Relatos Papel.postman_collection.json
+├── api-gateway/
+│   └── src/main/java/...
+└── README.md
+```
 
 ## 🎯 Funcionalidades Principales
 
-### 1. **Catálogo de Libros**
+### Microservicio Catalogue (`:8081`)
 
-- 
+- CRUD de libros con géneros.
+- Búsqueda por título, autor, ISBN, categoría, rating, popularidad y disponibilidad.
 
-### 2. **Detalle de Libro**
+### Microservicio Orders (`:8082`)
 
-- 
+- Creación de pedidos.
+- Consulta de pedido por ID.
+- Listado de pedidos por usuario.
 
-### 3. **Carrito de Compras**
+## API REST
 
-- 
+### Catalogue
 
-### 4. **Autenticación**
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| `GET` | `/api/books` | Buscar libros (query params opcionales) |
+| `GET` | `/api/books/{id}` | Obtener libro por ID |
+| `POST` | `/api/books` | Crear libro |
+| `PUT` | `/api/books/{id}` | Reemplazar libro |
+| `PATCH` | `/api/books/{id}` | Actualizar libro parcialmente |
+| `DELETE` | `/api/books/{id}` | Eliminar libro |
 
-- 
+**Query params de búsqueda:** `title`, `author`, `isbn`, `category`, `popularity`.
 
-## 🔄Flujo de comunicación entre microservicios (Catalogue - Orders)
+### Orders
+
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| `POST` | `/api/orders` | Crear pedido |
+| `GET` | `/api/orders/{id}` | Obtener pedido por ID |
+| `GET` | `/api/orders/user/{userId}` | Pedidos de un usuario |
+
+Colección Postman: `docs/Backend - Relatos Papel.postman_collection.json`.
+
+## 🔄 Comunicación entre microservicios
+
 ```text
 ┌─────────────────────────────────────────────────────────────┐
 │                          FRONTEND                           │
-└───────────────────────┬─────────────────────────────────────┘
-                        │
-            ┌───────────┼───────────┐
-            │           │           │
-            ▼           ▼           ▼
-       ┌─────────┐ ┌──────────┐ ┌────────┐
-       │Catálogo │ │ Detalle  │ │Carrito │
-       │(GET)    │ │(GET)     │ │(POST)  │
-       └────┬────┘ └────┬─────┘ └───┬────┘
-            │           │           │
-            └───────────┼───────────┘
-                        │
-                        ▼
-            ┌────────────────────────────┐
-            │    MICROSERVICIO 1         │
-            │       CATALOGUE            │
-            │         :8081              │
-            │   ✓ GET /books             │
-            │   ✓ GET /books/:title      │
-            │   ✓ GET /books/:author     │
-            │   ✓ GET /books/:popularity │
-            │   ✓ POST /books            │
-            │   ✓ PATCH /books/:id       │
-            │   ✓ DELETE /books/:id      │
-            └───────────┬────────────────┘
-                        │
-                DB: books_catalogue
-            └───────────────────────┘
-                        │
-                        │ Validación
-                        │ (stock, visible)
-                        ▼
-            ┌───────────────────────┐
-            │    MICROSERVICIO 2    │
-            │        ORDERS         │
-            │         :8082         │
-            │   ✓ POST /orders      │
-            │   ✓ GET /orders/:id   │
-            └───────────┬───────────┘
-                        │
-                 DB: books_orders
-            └───────────────────────┘
+└───────────────────────────┬─────────────────────────────────┘
+                     Eureka Server (:8761)
+              ┌─────────────┴─────────────┐
+              ▼                           ▼
+   ┌──────────────────────┐    ┌──────────────────────┐
+   │  CATALOGUE  :8081    │    │   ORDERS  :8082      │
+   │  /api/books          │◄───│  /api/orders         │
+   └──────────┬───────────┘    └──────────┬───────────┘
+              │                           │
+              ▼                           ▼
+     books_catalogue              books_orders
+     (MySQL :3307)                (MySQL :3308)
+              │                           │
+              └───────────┬───────────────┘
+                          ▼
+                  Gateway (:8080)
 ```
 
-## Modelo entidad-relación
+## Modelo de datos
 
-### Microservicio Catalogue
-![Diagrama de Base de Datos](docs/books_catalogue.png)
+### Catalogue
 
-### Microservicio Orders
-![Diagrama de Base de Datos](docs/books_orders.png)
+![Diagrama ER Catalogue](docs/books_catalogue.png)
 
-## 🛠️ Instalación y Configuración
+### Orders
+
+![Diagrama ER Orders](docs/books_orders.png)
+
+## Instalación y configuración
 
 ### Requisitos
-* Java 26
-* docker
 
-### Pasos
+- Java 25+
+- Docker
 
-## Clonar repositorio
+### 1. Clonar el repositorio
 
 ```bash
 git clone git@github.com:jmogollon-unir/dev_full_stack.git
-
 cd dev_full_stack
 ```
 
-## Crear bases de datos local con docker
+### 2. Bases de datos MySQL con Docker
 
 ```bash
-docker pull mysql
-```
+docker pull mysql:latest
 
-### Microservicio Catalogue
-```bash
+# Catalogue → puerto host 3307
 docker run -p 3307:3306 --name books_catalogue -e MYSQL_ROOT_PASSWORD=mysql -d mysql:latest
-```
 
-### Microservicio Orders
-```bash
+# Orders → puerto host 3308
 docker run -p 3308:3306 --name books_orders -e MYSQL_ROOT_PASSWORD=mysql -d mysql:latest
 ```
 
-### Configurar base desde dataGrip
+### 3. Cargar esquema y datos
 
-#### Microservicio Catalogue
+Desde la raíz del proyecto (o con DataGrip / MySQL Workbench):
+
+**Catalogue:**
 
 - Con ayuda del file **catalogue/books_catalogue.sql** se pueden crear las tablas de la base de datos y completar con datos de mocks
 
-#### Microservicio Orders
+**Orders:**
 
 - Con ayuda del file **orders/books_orders.sql** se pueden crear las tablas de la base de datos y completar con datos de mocks
 
-## Iniciar servidor de desarrollo desde intelliJ IDEA
+### 4. Configuración de aplicación
 
-- 
+Credenciales por defecto en `application.yml` de cada microservicio:
 
-👥 Integrantes
-Proyecto desarrollado por el Grupo 18 de la materia Desarrollo Full Stack del Máster Universitario en Ingeniería de Software y Sistemas Informáticos - UNIR.
+| Servicio | JDBC URL | Puerto app |
+|----------|----------|------------|
+| catalogue | `jdbc:mysql://localhost:3307/books_catalogue` | 8081 |
+| orders | `jdbc:mysql://localhost:3308/books_orders` | 8082 |
 
-* Julieth Camila Mogollón Bernal 
-* Leonardo Cashiel Olaechea Saavedra 
-* José Miguel Jamette Garrido 
-* Francisco Javier Febles Jimenez
-* Elsy Paola Amaya Lazo
+Usuario: `root` / Contraseña: `mysql`
 
+### 5. Arrancar los microservicios
+
+- Ejecución de Eureka `EurekaServerApplication`
+- Ejecutar `CatalogueApplication` y `OrdersApplication` desde IntelliJ IDEA.
+- También ejecutar `ApiGatewayApplication` desde IntelliJ IDEA.
+
+### 6. Verificar
+
+- `http://localhost:8080/api/...`
+
+## Integrantes
+
+Proyecto desarrollado por el **Grupo 18** — Desarrollo Full Stack, Máster Universitario en Ingeniería de Software y Sistemas Informáticos (UNIR).
+
+- Julieth Camila Mogollón Bernal
+- Leonardo Cashiel Olaechea Saavedra
+- José Miguel Jamette Garrido
+- Francisco Javier Febles Jimenez
+- Elsy Paola Amaya Lazo

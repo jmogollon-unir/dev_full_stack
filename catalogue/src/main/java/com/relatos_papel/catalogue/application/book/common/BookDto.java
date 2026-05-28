@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Data
 @Builder
 public class BookDto {
-    private Long bookId;
+    private Integer bookId;
     private String title;
     private String author;
     private String isbn;
@@ -19,13 +19,13 @@ public class BookDto {
     private String coverUrl;
     private String description;
     private String genreName;
-    private Long genreId;
+    private Integer genreId;
     private String format;
     private String language;
     private LocalDate publicationDate;
     private Integer popularity;
-    private Boolean isAvailable; // expuesto en la API para que orders pueda validar visibilidad
-
+    private Boolean isAvailable;
+    
     public static BookDto mapToDto(Book book) {
         return BookDto.builder()
                 .bookId(book.getBookId())

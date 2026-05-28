@@ -7,5 +7,5 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class DeleteBookCommand implements Request<Void> {
-    private Long bookId;
+    private Integer bookId;
 }

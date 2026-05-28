@@ -30,7 +30,7 @@ public class OrderController {
 
     // 2. Obtener pedido por ID (incluye títulos de libros via Feign)
     @GetMapping("/{id}")
-    public ResponseEntity<OrderDto> getOrderById(@PathVariable Long id) {
+    public ResponseEntity<OrderDto> getOrderById(@PathVariable Integer id) {
         var query = new GetOrderByIdQuery(id);
         var result = mediator.dispatch(query);
         return ResponseEntity.ok(result);
@@ -38,7 +38,7 @@ public class OrderController {
 
     // 3. Obtener todos los pedidos de un usuario
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<OrderDto>> getOrdersByUser(@PathVariable Long userId) {
+    public ResponseEntity<List<OrderDto>> getOrdersByUser(@PathVariable Integer userId) {
         var query = new GetOrdersByUserQuery(userId);
         var result = mediator.dispatch(query);
         return ResponseEntity.ok(result);

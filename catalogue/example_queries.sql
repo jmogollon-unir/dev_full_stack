@@ -38,42 +38,7 @@ WHERE is_visible = TRUE
 ORDER BY publication_date DESC;
 
 -- ========================================
--- 6. BÚSQUEDA POR VALORACIÓN (RATING)
--- ========================================
-SELECT b.*, AVG(r.rating) as avg_rating
-FROM books b
-         LEFT JOIN reviews r ON b.book_id = r.book_id
-WHERE is_visible = TRUE
-GROUP BY b.book_id
-HAVING AVG(r.rating) >= 4.0
-ORDER BY avg_rating DESC;
-
--- ========================================
--- 7. BÚSQUEDA COMBINADA (Ejemplo)
--- ========================================
-SELECT b.*, AVG(r.rating) as avg_rating
-FROM books b
-         LEFT JOIN reviews r ON b.book_id = r.book_id
-         LEFT JOIN genres g ON b.genre_id = g.genre_id
-WHERE is_visible = TRUE
-  AND b.is_available = TRUE
-  AND g.name = 'Ficción'
-  AND b.price BETWEEN 15 AND 30
-GROUP BY b.book_id
-ORDER BY b.popularity DESC;
-
--- ========================================
--- 8. OBTENER LIBRO CON SUS RESEÑAS
--- ========================================
-SELECT b.*, r.review_id, r.user_id, r.rating, r.comment, r.review_date
-FROM books b
-         LEFT JOIN reviews r ON b.book_id = r.book_id
-WHERE b.is_visible = TRUE
-  AND b.book_id = 1
-ORDER BY r.review_date DESC;
-
--- ========================================
--- 9. VALIDAR DISPONIBILIDAD DE LIBRO (Para Orders)
+-- 6. VALIDAR DISPONIBILIDAD DE LIBRO (Para Orders)
 -- ========================================
 SELECT book_id, title, price, stock, is_available, is_visible
 FROM books
@@ -83,7 +48,7 @@ WHERE book_id = 1
   AND stock > 0;
 
 -- ========================================
--- 10. ACTUALIZAR STOCK DESPUÉS DE COMPRA
+-- 7. ACTUALIZAR STOCK DESPUÉS DE COMPRA
 -- ========================================
 UPDATE books
 SET stock = stock - 2

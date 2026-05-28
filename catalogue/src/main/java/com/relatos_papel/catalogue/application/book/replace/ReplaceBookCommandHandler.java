@@ -1,6 +1,7 @@
 package com.relatos_papel.catalogue.application.book.replace;
 
 import com.relatos_papel.catalogue.application.book.common.BookDto;
+import com.relatos_papel.catalogue.common.exception.ResourceNotFoundException;
 import com.relatos_papel.catalogue.common.mediator.RequestHandler;
 import com.relatos_papel.catalogue.domain.model.Book;
 import com.relatos_papel.catalogue.domain.model.enums.BookFormat;
@@ -19,11 +20,10 @@ public class ReplaceBookCommandHandler implements RequestHandler<ReplaceBookComm
     @Override
     public BookDto handle(ReplaceBookCommand request) {
         Book book = bookRepository.findById(request.getBookId())
-                .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Libro no encontrado"));
 
         var data = request.getData();
 
-        // PUT: reemplaza todos los campos
         book.setTitle(data.getTitle());
         book.setAuthor(data.getAuthor());
         book.setIsbn(data.getIsbn());
@@ -38,7 +38,7 @@ public class ReplaceBookCommandHandler implements RequestHandler<ReplaceBookComm
 
         if (data.getGenreId() != null) {
             book.setGenre(genreRepository.findById(data.getGenreId())
-                    .orElseThrow(() -> new RuntimeException("Género no encontrado")));
+                    .orElseThrow(() -> new ResourceNotFoundException("Género no encontrado")));
         }
 
         Book savedBook = bookRepository.save(book);
@@ -50,4 +50,3 @@ public class ReplaceBookCommandHandler implements RequestHandler<ReplaceBookComm
         return ReplaceBookCommand.class;
     }
 }
-

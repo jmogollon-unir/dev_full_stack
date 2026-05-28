@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 @Data
 public class BookSummaryDto {
-    private Long bookId;
+    private Integer bookId;
     private String title;
     private String author;
     private String isbn;

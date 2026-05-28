@@ -22,14 +22,14 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_items_id")
-    private Long orderItemsId;
+    private Integer orderItemsId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
     @Column(name = "book_id", nullable = false)
-    private Long bookId;
+    private Integer bookId;
 
     @Column(nullable = false)
     private Integer quantity = 1;

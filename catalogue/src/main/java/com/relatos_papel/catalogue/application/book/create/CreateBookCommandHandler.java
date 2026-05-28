@@ -7,6 +7,8 @@ import com.relatos_papel.catalogue.domain.model.Genre;
 import com.relatos_papel.catalogue.domain.model.enums.BookFormat;
 import com.relatos_papel.catalogue.infrastructure.repositories.BookRepository;
 import com.relatos_papel.catalogue.infrastructure.repositories.GenreRepository;
+import com.relatos_papel.catalogue.common.exception.DuplicateResourceException;
+import com.relatos_papel.catalogue.common.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +22,11 @@ public class CreateBookCommandHandler implements RequestHandler<CreateBookComman
     @Override
     public BookDto handle(CreateBookCommand request) {
         Genre genre = genreRepository.findById(request.getData().getGenreId())
-                .orElseThrow(() -> new RuntimeException("Género no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Género no encontrado"));
+
+        if (bookRepository.existsByIsbn(request.getData().getIsbn())) {
+            throw new DuplicateResourceException("Ya existe un libro con el ISBN " + request.getData().getIsbn());
+        }
 
         Book book = new Book();
         book.setTitle(request.getData().getTitle());
@@ -44,6 +50,4 @@ public class CreateBookCommandHandler implements RequestHandler<CreateBookComman
     public Class<CreateBookCommand> getRequestType() {
         return CreateBookCommand.class;
     }
-
-
 }

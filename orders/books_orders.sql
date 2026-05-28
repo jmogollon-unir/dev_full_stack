@@ -1,3 +1,5 @@
+-- Esquema con IDs INT (alineado con entidades JPA Integer).
+-- Si hay errores de FK por migraciones previas: mysql ... < reset_books_orders.sql && mysql ... < books_orders.sql
 -- ========================================
 -- CREAR SCHEMA
 -- ========================================

@@ -10,5 +10,5 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class GetOrdersByUserQuery implements Request<List<OrderDto>> {
-    private Long userId;
+    private Integer userId;
 }

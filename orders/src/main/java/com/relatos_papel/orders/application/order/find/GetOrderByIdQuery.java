@@ -8,5 +8,5 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class GetOrderByIdQuery implements Request<OrderDto> {
-    private Long orderId;
+    private Integer orderId;
 }

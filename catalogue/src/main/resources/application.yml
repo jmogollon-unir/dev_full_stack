@@ -11,7 +11,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: update # Validará o creará/actualizará tu tabla en base a la entidad
+      ddl-auto: validate # Esquema definido en books_catalogue.sql (IDs INT)
     show-sql: true # Para ver las consultas en consola
 
 eureka:

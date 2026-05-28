@@ -9,6 +9,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class UpdateBookCommand implements Request<BookDto> {
-    private Long bookId;
+    private Integer bookId;
     private SaveBookDto data;
 }

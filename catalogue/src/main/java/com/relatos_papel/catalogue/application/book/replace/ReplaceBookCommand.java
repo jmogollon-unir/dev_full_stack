@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ReplaceBookCommand implements Request<BookDto> {
-    private Long bookId;
+    private Integer bookId;
     private SaveBookDto data;
 }
 

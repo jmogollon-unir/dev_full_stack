@@ -1,6 +1,7 @@
 package com.relatos_papel.catalogue.application.book.update;
 
 import com.relatos_papel.catalogue.application.book.common.BookDto;
+import com.relatos_papel.catalogue.common.exception.ResourceNotFoundException;
 import com.relatos_papel.catalogue.common.mediator.RequestHandler;
 import com.relatos_papel.catalogue.domain.model.Book;
 import com.relatos_papel.catalogue.domain.model.enums.BookFormat;
@@ -19,10 +20,9 @@ public class UpdateBookCommandHandler implements RequestHandler<UpdateBookComman
     @Override
     public BookDto handle(UpdateBookCommand request) {
         Book book = bookRepository.findById(request.getBookId())
-                .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Libro no encontrado"));
 
         var data = request.getData();
-        // PATCH: actualización parcial, solo actualiza campos no nulos
         if (data.getTitle() != null) book.setTitle(data.getTitle());
         if (data.getAuthor() != null) book.setAuthor(data.getAuthor());
         if (data.getIsbn() != null) book.setIsbn(data.getIsbn());
@@ -37,7 +37,7 @@ public class UpdateBookCommandHandler implements RequestHandler<UpdateBookComman
 
         if (data.getGenreId() != null) {
             book.setGenre(genreRepository.findById(data.getGenreId())
-                    .orElseThrow(() -> new RuntimeException("Género no encontrado")));
+                    .orElseThrow(() -> new ResourceNotFoundException("Género no encontrado")));
         }
 
         Book savedBook = bookRepository.save(book);

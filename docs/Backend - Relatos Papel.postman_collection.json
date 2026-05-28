@@ -1,0 +1,928 @@
+{
+  "info": {
+    "_postman_id": "fdb1c65e-f9c3-4a15-b2dc-41d73eba883f",
+    "name": "Backend - Relatos Papel",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55320246",
+    "_collection_link": "https://go.postman.co/collection/55320246-fdb1c65e-f9c3-4a15-b2dc-41d73eba883f?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "orders",
+          "item": [
+            {
+              "name": "user",
+              "item": [
+                {
+                  "name": "GetOrdersByUserID",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/orders/user/:userId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "orders",
+                        "user",
+                        ":userId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "userId",
+                          "value": "4"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Obtener pedidos usuario",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/orders/user/:userId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "orders",
+                            "user",
+                            ":userId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "userId",
+                              "value": "4"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "Text",
+                      "header": [
+                        {
+                          "key": "transfer-encoding",
+                          "value": "chunked"
+                        },
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "key": "Date",
+                          "value": "Thu, 28 May 2026 06:35:19 GMT"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "[\n    {\n        \"address\": \"Ronda Sant Antoni 101\",\n        \"city\": \"Barcelona\",\n        \"country\": \"España\",\n        \"email\": \"miguel@example.com\",\n        \"items\": [\n            {\n                \"bookId\": 7,\n                \"bookTitle\": \"Harry Potter y la Piedra Filosofal\",\n                \"price\": 22.99,\n                \"quantity\": 2,\n                \"subtotal\": 45.98\n            },\n            {\n                \"bookId\": 11,\n                \"bookTitle\": \"El Señor de los Anillos\",\n                \"price\": 34.99,\n                \"quantity\": 1,\n                \"subtotal\": 34.99\n            },\n            {\n                \"bookId\": 1,\n                \"bookTitle\": \"Cien Años de Soledad\",\n                \"price\": 24.99,\n                \"quantity\": 1,\n                \"subtotal\": 24.99\n            }\n        ],\n        \"orderDate\": \"2026-05-22T06:00:00\",\n        \"orderId\": 5,\n        \"phone\": \"+34 934 567 890\",\n        \"status_name\": \"shipped\",\n        \"total\": 104.97,\n        \"username\": \"miguel_torres\"\n    }\n]"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "AddOrder",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"userId\": 6,\n    \"items\": [\n        {\n            \"bookId\": 8,\n            \"quantity\": 5\n        }\n    ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Agregar pedido",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"userId\": 6,\n    \"items\": [\n        {\n            \"bookId\": 8,\n            \"quantity\": 5\n        }\n    ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/orders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "orders"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "transfer-encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json",
+                      "description": "",
+                      "type": "text"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Thu, 28 May 2026 06:33:57 GMT"
+                    }
+                  ],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": "{\n    \"address\": \"Gran Vía 303\",\n    \"city\": \"Madrid\",\n    \"country\": \"España\",\n    \"email\": \"maria@example.com\",\n    \"items\": [\n        {\n            \"bookId\": 8,\n            \"bookTitle\": \"Rayuela\",\n            \"orderItemsId\": 18,\n            \"price\": 26.99,\n            \"quantity\": 5,\n            \"subtotal\": 134.95\n        }\n    ],\n    \"orderDate\": \"2026-05-28T17:40:51.821297\",\n    \"orderId\": 12,\n    \"phone\": \"+34 916 789 012\",\n    \"status_name\": \"pending\",\n    \"total\": 134.95,\n    \"username\": \"maria_sanchez\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "GetOrderByID",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/orders/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "OK",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/orders/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "orders",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "1"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"address\": \"Calle Principal 123\",\n    \"city\": \"Madrid\",\n    \"country\": \"España\",\n    \"email\": \"julieth@example.com\",\n    \"items\": [\n        {\n            \"bookId\": 1,\n            \"bookTitle\": \"Cien Años de Soledad\",\n            \"orderItemsId\": 1,\n            \"price\": 24.99,\n            \"quantity\": 2,\n            \"subtotal\": 49.98\n        },\n        {\n            \"bookId\": 7,\n            \"bookTitle\": \"Harry Potter y la Piedra Filosofal\",\n            \"orderItemsId\": 2,\n            \"price\": 22.99,\n            \"quantity\": 1,\n            \"subtotal\": 22.99\n        }\n    ],\n    \"orderDate\": \"2026-05-01T05:30:00\",\n    \"orderId\": 1,\n    \"phone\": \"+34 912 345 678\",\n    \"status_name\": \"delivered\",\n    \"total\": 89.97,\n    \"username\": \"julieth_mogollon\"\n}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Catalogue",
+      "item": [
+        {
+          "name": "books",
+          "item": [
+            {
+              "name": "ByID",
+              "item": [
+                {
+                  "name": "UpdateBookByID",
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"price\": 20.99,\n  \"stock\": 16\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/books/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "books",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "1"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Actualizar libro",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"price\": 20.99,\n  \"stock\": 16\n}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/books/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "books",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "1"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "Text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "key": "Transfer-Encoding",
+                          "value": "chunked"
+                        },
+                        {
+                          "key": "Date",
+                          "value": "Thu, 28 May 2026 06:32:10 GMT"
+                        },
+                        {
+                          "key": "Keep-Alive",
+                          "value": "timeout=60"
+                        },
+                        {
+                          "key": "Connection",
+                          "value": "keep-alive"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n    \"author\": \"Gabriel García Márquez\",\n    \"bookId\": 1,\n    \"coverUrl\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Cien_a%C3%B1os_de_soledad.png/500px-Cien_a%C3%B1os_de_soledad.png\",\n    \"description\": \"Una obra maestra de la literatura latinoamericana que narra la historia de la familia Buendía a lo largo de siete generaciones en el pueblo ficticio de Macondo.\",\n    \"format\": \"Físico y Digital\",\n    \"genreId\": 1,\n    \"genreName\": \"Realismo Mágico\",\n    \"isAvailable\": true,\n    \"isbn\": \"978-0-06-085496-7\",\n    \"language\": \"Español\",\n    \"popularity\": 95,\n    \"price\": 20.99,\n    \"publicationDate\": \"1967-05-30\",\n    \"stock\": 16,\n    \"title\": \"Cien Años de Soledad\"\n}"
+                    }
+                  ]
+                },
+                {
+                  "name": "DeleteBookByID",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*",
+                        "disabled": true
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/books/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "books",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "12"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Eliminar libro",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/books/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "books",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "14"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "Text",
+                      "header": [
+                        {
+                          "key": "Date",
+                          "value": "Thu, 28 May 2026 06:31:57 GMT"
+                        },
+                        {
+                          "key": "Keep-Alive",
+                          "value": "timeout=60"
+                        },
+                        {
+                          "key": "Connection",
+                          "value": "keep-alive"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": ""
+                    }
+                  ]
+                },
+                {
+                  "name": "GetBookByID",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/books/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "books",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "1"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Obtener libro",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/books/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "books",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "2"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "Text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "key": "Transfer-Encoding",
+                          "value": "chunked"
+                        },
+                        {
+                          "key": "Date",
+                          "value": "Thu, 28 May 2026 06:27:46 GMT"
+                        },
+                        {
+                          "key": "Keep-Alive",
+                          "value": "timeout=60"
+                        },
+                        {
+                          "key": "Connection",
+                          "value": "keep-alive"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n    \"author\": \"George Orwell\",\n    \"bookId\": 2,\n    \"coverUrl\": \"https://upload.wikimedia.org/wikipedia/commons/5/51/1984_first_edition_cover.jpg\",\n    \"description\": \"Una distopa que describe un mundo totalitario donde el Gran Hermano todo lo ve. Winston Smith trabaja en el Ministerio de la Verdad, reescribiendo la historia.\",\n    \"format\": \"Físico y Digital\",\n    \"genreId\": 2,\n    \"genreName\": \"Ciencia Ficcin\",\n    \"isAvailable\": true,\n    \"isbn\": \"978-0-451-52494-2\",\n    \"language\": \"Espaol\",\n    \"popularity\": 90,\n    \"price\": 19.99,\n    \"publicationDate\": \"2020-06-08\",\n    \"stock\": 23,\n    \"title\": \"1984\"\n}"
+                    }
+                  ]
+                },
+                {
+                  "name": "ReplaceBookByID",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"title\": \"El amor en los tiempos del cólera\",\n  \"author\": \"Gabriel García Márquez\",\n  \"isbn\": \"978-0-14-028525-5\",\n  \"category\": \"Romance\",\n  \"price\": 24.99,\n  \"stock\": 50\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/books/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "books",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "1"
+                        }
+                      ]
+                    },
+                    "description": "PUT api/books/{id} - replaceBook. Replaces a book by ID. Returns BookDto."
+                  },
+                  "response": [
+                    {
+                      "name": "Reemplazar libro",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"title\": \"El amor en los tiempos del cólera\",\n  \"author\": \"Gabriel García Márquez\",\n  \"isbn\": \"978-0-14-028525-5\",\n  \"category\": \"Romance\",\n  \"price\": 24.99,\n  \"stock\": 50\n}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/books/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "books",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "1"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json",
+                          "description": "",
+                          "type": "text"
+                        },
+                        {
+                          "key": "Transfer-Encoding",
+                          "value": "chunked"
+                        },
+                        {
+                          "key": "Date",
+                          "value": "Thu, 28 May 2026 06:28:13 GMT"
+                        },
+                        {
+                          "key": "Keep-Alive",
+                          "value": "timeout=60"
+                        },
+                        {
+                          "key": "Connection",
+                          "value": "keep-alive"
+                        }
+                      ],
+                      "cookie": [
+                        {
+                          "expires": "Invalid Date",
+                          "domain": "",
+                          "path": ""
+                        }
+                      ],
+                      "body": "{\n    \"author\": \"Gabriel García Márquez\",\n    \"bookId\": 1,\n    \"coverUrl\": null,\n    \"description\": null,\n    \"format\": \"Físico y Digital\",\n    \"genreId\": 1,\n    \"genreName\": \"Realismo Mágico\",\n    \"isAvailable\": true,\n    \"isbn\": \"978-0-14-028525-5\",\n    \"language\": \"Español\",\n    \"popularity\": 95,\n    \"price\": 24.99,\n    \"publicationDate\": null,\n    \"stock\": 50,\n    \"title\": \"El amor en los tiempos del cólera\"\n}"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "AddBook",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"La reina roja\",\n  \"author\": \"Julieth Mogollon\",\n  \"isbn\": \"123-0-06-085496-7\",\n  \"genreId\": 1,\n  \"price\": 29.99,\n  \"stock\": 33\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/books",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "books"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Agregar libro",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"title\": \"La reina roja\",\n  \"author\": \"Julieth Mogollon\",\n  \"isbn\": \"123-0-06-085496-7\",\n  \"genreId\": 1,\n  \"price\": 29.99,\n  \"stock\": 33\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/books",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "books"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "Text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Thu, 28 May 2026 06:31:31 GMT"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"author\": \"Julieth Mogollon\",\n    \"bookId\": 14,\n    \"coverUrl\": null,\n    \"description\": null,\n    \"format\": \"Físico y Digital\",\n    \"genreId\": 1,\n    \"genreName\": \"Realismo Mágico\",\n    \"isAvailable\": true,\n    \"isbn\": \"123-0-06-085496-7\",\n    \"language\": \"Español\",\n    \"popularity\": 0,\n    \"price\": 29.99,\n    \"publicationDate\": null,\n    \"stock\": 33,\n    \"title\": \"La reina roja\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "GetBookByFilter",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/books",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "books"
+                  ],
+                  "query": [
+                    {
+                      "key": "title",
+                      "value": "1984",
+                      "disabled": true
+                    },
+                    {
+                      "key": "author",
+                      "value": "Gabriel García Márquez",
+                      "disabled": true
+                    },
+                    {
+                      "key": "isbn",
+                      "value": "978-0-06-074547-4",
+                      "disabled": true
+                    },
+                    {
+                      "key": "category",
+                      "value": "9",
+                      "disabled": true
+                    },
+                    {
+                      "key": "popularity",
+                      "value": "75",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Filtrar libros",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/books",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "books"
+                      ],
+                      "query": [
+                        {
+                          "key": "title",
+                          "value": "1984",
+                          "disabled": true
+                        },
+                        {
+                          "key": "author",
+                          "value": "Gabriel García Márquez",
+                          "disabled": true
+                        },
+                        {
+                          "key": "isbn",
+                          "value": "978-0-451-52494-2",
+                          "disabled": true
+                        },
+                        {
+                          "key": "category",
+                          "value": "5",
+                          "disabled": true
+                        },
+                        {
+                          "key": "popularity",
+                          "value": "75",
+                          "disabled": true
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json",
+                      "description": "",
+                      "type": "text"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Thu, 28 May 2026 06:14:22 GMT"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": "[\n    {\n        \"author\": \"Gabriel Garca Mrquez\",\n        \"bookId\": 1,\n        \"coverUrl\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Cien_a%C3%B1os_de_soledad.png/500px-Cien_a%C3%B1os_de_soledad.png\",\n        \"description\": \"Una obra maestra de la literatura latinoamericana que narra la historia de la familia Buenda a lo largo de siete generaciones en el pueblo ficticio de Macondo.\",\n        \"format\": \"Físico y Digital\",\n        \"genreId\": 1,\n        \"genreName\": \"Realismo Mgico\",\n        \"isAvailable\": true,\n        \"isbn\": \"978-0-06-085496-7\",\n        \"language\": \"Espaol\",\n        \"popularity\": 95,\n        \"price\": 24.99,\n        \"publicationDate\": \"1967-05-30\",\n        \"stock\": 15,\n        \"title\": \"Cien Aos de Soledad\"\n    },\n    {\n        \"author\": \"George Orwell\",\n        \"bookId\": 2,\n        \"coverUrl\": \"https://upload.wikimedia.org/wikipedia/commons/5/51/1984_first_edition_cover.jpg\",\n        \"description\": \"Una distopa que describe un mundo totalitario donde el Gran Hermano todo lo ve. Winston Smith trabaja en el Ministerio de la Verdad, reescribiendo la historia.\",\n        \"format\": \"Físico y Digital\",\n        \"genreId\": 2,\n        \"genreName\": \"Ciencia Ficcin\",\n        \"isAvailable\": true,\n        \"isbn\": \"978-0-451-52494-2\",\n        \"language\": \"Espaol\",\n        \"popularity\": 90,\n        \"price\": 19.99,\n        \"publicationDate\": \"2020-06-08\",\n        \"stock\": 23,\n        \"title\": \"1984\"\n    },\n    {\n        \"author\": \"Miguel de Cervantes\",\n        \"bookId\": 4,\n        \"coverUrl\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Title_page_first_edition_Don_Quijote.jpg/500px-Title_page_first_edition_Don_Quijote.jpg\",\n        \"description\": \"La obra cumbre de la literatura espaola, una historia de aventuras y caballera. Don Quijote sale en busca de aventuras acompaado de su fiel escudero.\",\n        \"format\": \"Físico\",\n        \"genreId\": 4,\n        \"genreName\": \"Clsico\",\n        \"isAvailable\": true,\n        \"isbn\": \"978-0-06-074547-4\",\n        \"language\": \"Espaol\",\n        \"popularity\": 92,\n        \"price\": 29.99,\n        \"publicationDate\": \"1605-01-16\",\n        \"stock\": 8,\n        \"title\": \"Don Quijote de la Mancha\"\n    },\n    {\n        \"author\": \"Jane Austen\",\n        \"bookId\": 5,\n        \"coverUrl\": \"https://upload.wikimedia.org/wikipedia/commons/d/d4/PrideandPrejudiceCH3detail.jpg\",\n        \"description\": \"Una novela romntica que critica las convenciones sociales de la Inglaterra del siglo XIX. Elizabeth Bennet debe navegar las expectativas sociales.\",\n        \"format\": \"Físico y Digital\",\n        \"genreId\": 5,\n        \"genreName\": \"Romance\",\n        \"isAvailable\": true,\n        \"isbn\": \"978-0-14-118173-0\",\n        \"language\": \"Espaol\",\n        \"popularity\": 88,\n        \"price\": 21.99,\n        \"publicationDate\": \"1813-01-28\",\n        \"stock\": 12,\n        \"title\": \"Orgullo y Prejuicio\"\n    },\n    {\n        \"author\": \"Paulo Coelho\",\n        \"bookId\": 6,\n        \"coverUrl\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Bibliotheca_Chemica_Curiosa_%28Pagina_titularis%29.jpg/500px-Bibliotheca_Chemica_Curiosa_%28Pagina_titularis%29.jpg\",\n        \"description\": \"Una fbula sobre seguir nuestros sueos y escuchar al corazn. Santiago, un joven pastor andaluz, emprende un viaje hacia las pirmides de Egipto.\",\n        \"format\": \"Físico y Digital\",\n        \"genreId\": 6,\n        \"genreName\": \"Ficcin\",\n        \"isAvailable\": true,\n        \"isbn\": \"978-0-06-250335-9\",\n        \"language\": \"Espaol\",\n        \"popularity\": 80,\n        \"price\": 18.99,\n        \"publicationDate\": \"1988-01-01\",\n        \"stock\": 20,\n        \"title\": \"El Alquimista\"\n    },\n    {\n        \"author\": \"J.K. Rowling\",\n        \"bookId\": 7,\n        \"coverUrl\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Harry_Potter.jpg/960px-Harry_Potter.jpg\",\n        \"description\": \"El comienzo de la saga mgica que conquist al mundo entero. Harry descubre en su undcimo cumpleaos que es un mago y comienza su educacin.\",\n        \"format\": \"Físico y Digital\",\n        \"genreId\": 7,\n        \"genreName\": \"Fantasa\",\n        \"isAvailable\": true,\n        \"isbn\": \"978-0-439-13959-0\",\n        \"language\": \"Espaol\",\n        \"popularity\": 100,\n        \"price\": 22.99,\n        \"publicationDate\": \"2026-06-26\",\n        \"stock\": 30,\n        \"title\": \"Harry Potter y la Piedra Filosofal\"\n    },\n    {\n        \"author\": \"Julio Cortzar\",\n        \"bookId\": 8,\n        \"coverUrl\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Rayuela_JC.png/500px-Rayuela_JC.png\",\n        \"description\": \"Una novela experimental que rompe con la estructura narrativa tradicional. El lector puede elegir diferentes caminos de lectura.\",\n        \"format\": \"Físico\",\n        \"genreId\": 8,\n        \"genreName\": \"Literatura Experimental\",\n        \"isAvailable\": true,\n        \"isbn\": \"978-0-14-118368-0\",\n        \"language\": \"Espaol\",\n        \"popularity\": 75,\n        \"price\": 26.99,\n        \"publicationDate\": \"1963-01-28\",\n        \"stock\": 5,\n        \"title\": \"Rayuela\"\n    },\n    {\n        \"author\": \"Umberto Eco\",\n        \"bookId\": 9,\n        \"coverUrl\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/La_Sacra_ammantata_dalla_neve.jpg/960px-La_Sacra_ammantata_dalla_neve.jpg\",\n        \"description\": \"Un thriller medieval que combina misterio, filosofa y semitica. En una abada benedictina se investiga una serie de misteriosas muertes.\",\n        \"format\": \"Físico y Digital\",\n        \"genreId\": 9,\n        \"genreName\": \"Misterio\",\n        \"isAvailable\": true,\n        \"isbn\": \"978-0-15-603400-0\",\n        \"language\": \"Espaol\",\n        \"popularity\": 85,\n        \"price\": 27.99,\n        \"publicationDate\": \"1980-09-01\",\n        \"stock\": 10,\n        \"title\": \"El Nombre de la Rosa\"\n    },\n    {\n        \"author\": \"Carlos Ruiz Zafn\",\n        \"bookId\": 10,\n        \"coverUrl\": \"https://upload.wikimedia.org/wikipedia/commons/1/1a/Shadow_Cosplay_Photograph_from_Comic-Con_International_San_Diego.jpg\",\n        \"description\": \"Una historia de amor, intriga y libros en la Barcelona de posguerra. Daniel descubre un libro que cambiar su vida en el Cementerio de los Libros Olvidados.\",\n        \"format\": \"Físico y Digital\",\n        \"genreId\": 9,\n        \"genreName\": \"Misterio\",\n        \"isAvailable\": true,\n        \"isbn\": \"978-0-06-250399-9\",\n        \"language\": \"Espaol\",\n        \"popularity\": 50,\n        \"price\": 23.99,\n        \"publicationDate\": \"2001-04-12\",\n        \"stock\": 18,\n        \"title\": \"La Sombra del Viento\"\n    },\n    {\n        \"author\": \"J.R.R. Tolkien\",\n        \"bookId\": 11,\n        \"coverUrl\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/El_Se%C3%B1or_de_los_Anillos_lectura.jpg/960px-El_Se%C3%B1or_de_los_Anillos_lectura.jpg\",\n        \"description\": \"La pica aventura que defini el gnero de fantasa moderna. Frodo Bolsn debe destruir el Anillo nico.\",\n        \"format\": \"Físico y Digital\",\n        \"genreId\": 7,\n        \"genreName\": \"Fantasa\",\n        \"isAvailable\": true,\n        \"isbn\": \"978-0-544-00346-1\",\n        \"language\": \"Espaol\",\n        \"popularity\": 98,\n        \"price\": 34.99,\n        \"publicationDate\": \"1954-07-29\",\n        \"stock\": 25,\n        \"title\": \"El Seor de los Anillos\"\n    }\n]"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": ""
+    }
+  ]
+}

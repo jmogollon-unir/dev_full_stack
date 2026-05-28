@@ -11,6 +11,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "books", indexes = {
@@ -28,7 +30,7 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_id")
-    private Long bookId;
+    private Integer bookId;
 
     @Column(nullable = false)
     private String title;
@@ -53,13 +55,12 @@ public class Book {
     @Column(columnDefinition = "LONGTEXT")
     private String description;
 
-    // Relación Real con la tabla Genres (ON DELETE RESTRICT está manejado por BD/JPA)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "genre_id", nullable = false)
     private Genre genre;
 
     @Column(name = "format")
-    private BookFormat format = BookFormat.AMBOS; // Físico y Digital por defecto
+    private BookFormat format = BookFormat.AMBOS;
 
     @Column(length = 50)
     private String language = "Español";
