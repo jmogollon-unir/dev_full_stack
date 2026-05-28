@@ -1,0 +1,13 @@
+package com.relatos_papel.orders.application.order.status;
+
+import com.relatos_papel.orders.application.order.common.OrderDto;
+import com.relatos_papel.orders.common.mediator.Request;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class UpdateOrderStatusCommand implements Request<OrderDto> {
+    private Long orderId;
+    private Integer statusId;
+}
