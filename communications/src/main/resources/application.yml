@@ -1,0 +1,58 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: communications
+
+  ## RabbitMQ Configuration
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:dwfs}
+    password: ${RABBITMQ_PASSWORD:admin}
+    virtual-host: ${RABBITMQ_VHOST:/}
+
+  # Configuración de correo electrónico
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_USERNAME:grupo18.unir2026@gmail.com}
+    password: ${EMAIL_PASSWORD:zckbzbamocwjnhsj}
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            trust: smtp.gmail.com
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    # Forzamos que el ID de registro en Eureka sea con la IP y el puerto
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+
+## RabbitMQ Event Configuration
+rabbitmq:
+  queue:
+    mails:
+      order-created: mails.order.created
+  exchange:
+    orders: orders.created
+  routing:
+    key:
+      order:
+        created: order.created
+
+# Configuración de notificaciones por correo
+email:
+  notification:
+    to: ${NOTIFICATION_EMAIL:grupo18.unir2026@gmail.com}
+    from: ${FROM_EMAIL:Relatos de papel - Pedido creado <grupo18.unir2026@gmail.com>}

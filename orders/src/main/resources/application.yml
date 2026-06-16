@@ -4,6 +4,15 @@ server:
 spring:
   application:
     name: orders
+
+  ## RabbitMQ Configuration
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:dwfs}
+    password: ${RABBITMQ_PASSWORD:admin}
+    virtual-host: ${RABBITMQ_VHOST:/}
+
   datasource:
     url: jdbc:mysql://localhost:3308/books_orders?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
@@ -22,3 +31,12 @@ eureka:
     prefer-ip-address: true
     # Forzamos que el ID de registro en Eureka sea con la IP y el puerto
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+
+## RabbitMQ Event Configuration
+rabbitmq:
+  exchange:
+    orders: orders.created
+  routing:
+    key:
+      order:
+        created: order.created
