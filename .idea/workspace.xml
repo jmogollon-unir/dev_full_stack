@@ -7,20 +7,7 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1105ce-3e63-4cf4-be7a-6bbe444a7267" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/communications/src/main/java/com/relatos_papel/communications/chat/config/GeminiProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/communications/src/main/java/com/relatos_papel/communications/chat/config/WebSocketConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/communications/src/main/java/com/relatos_papel/communications/chat/controller/handler/ChatWebSocketHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/communications/src/main/java/com/relatos_papel/communications/chat/controller/model/ChatRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/communications/src/main/java/com/relatos_papel/communications/chat/controller/model/ChatResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/communications/src/main/java/com/relatos_papel/communications/chat/model/GeminiRequestDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/communications/src/main/java/com/relatos_papel/communications/chat/model/GeminiResponseDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/communications/src/main/java/com/relatos_papel/communications/chat/prompt/SystemPromptProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/communications/src/main/java/com/relatos_papel/communications/chat/service/StreamGeminiChatService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/communications/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/communications/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/communications/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/communications/src/main/resources/application.yml" afterDir="false" />
-    </list>
+    <list default="true" id="ba1105ce-3e63-4cf4-be7a-6bbe444a7267" name="Changes" comment="feat: api gemini" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -79,6 +66,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Dreamlocked"
+  }
+}]]></component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/jmogollon-unir/dev_full_stack.git",
@@ -108,23 +101,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.57902255138848" />
-      <entry key="MS500" value="5.280784843643461" />
-      <entry key="S2" value="12.118297481910984" />
-      <entry key="S5" value="15.24328747502714" />
-      <entry key="S10" value="16.542181032880897" />
-      <entry key="S30" value="17.495086587914603" />
-      <entry key="S60" value="17.745085060422223" />
-      <entry key="M2" value="17.873119799389574" />
-      <entry key="M5" value="18.042183044638318" />
-      <entry key="M10" value="18.398774992281098" />
-      <entry key="M15" value="18.691407621277428" />
-      <entry key="M30" value="19.179251236684042" />
-      <entry key="H1" value="19.536182716444053" />
-      <entry key="H2" value="19.752876249165947" />
-      <entry key="H4" value="19.872373933399736" />
-      <entry key="D1" value="19.97814093598624" />
-      <entry key="W1" value="19.996862557266954" />
+      <entry key="MS100" value="1.017712020890988" />
+      <entry key="MS500" value="1.8005776208614876" />
+      <entry key="S2" value="5.059154751390686" />
+      <entry key="S5" value="7.060620584662453" />
+      <entry key="S10" value="8.224208867650121" />
+      <entry key="S30" value="16.575040849555123" />
+      <entry key="S60" value="34.313618230228705" />
+      <entry key="M2" value="59.749703031266456" />
+      <entry key="M5" value="89.56050712103458" />
+      <entry key="M10" value="104.04140809090157" />
+      <entry key="M15" value="109.6902763241225" />
+      <entry key="M30" value="115.9326944972616" />
+      <entry key="H1" value="119.3429830310569" />
+      <entry key="H2" value="121.13741371110727" />
+      <entry key="H4" value="122.05972741817456" />
+      <entry key="D1" value="122.84199880457363" />
+      <entry key="W1" value="122.97739626294994" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -146,24 +139,27 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.496901775488009" />
-      <entry key="MS500" value="5.201105475173685" />
-      <entry key="S2" value="12.071442366230738" />
-      <entry key="S5" value="15.219738579272665" />
-      <entry key="S10" value="16.52941901023648" />
-      <entry key="S30" value="17.49059241672472" />
-      <entry key="S60" value="17.742806562058586" />
-      <entry key="M2" value="17.871972473019454" />
-      <entry key="M5" value="18.041715986685592" />
-      <entry key="M10" value="18.398527239437072" />
-      <entry key="M15" value="18.691233659377126" />
-      <entry key="M30" value="19.17915647104849" />
-      <entry key="H1" value="19.53613237089927" />
-      <entry key="H2" value="19.75285015967508" />
-      <entry key="H4" value="19.872360633494512" />
-      <entry key="D1" value="19.978138681478892" />
-      <entry key="W1" value="19.99686223423432" />
+      <entry key="MS100" value="0.19759738301837462" />
+      <entry key="MS500" value="1.2234559816829031" />
+      <entry key="S2" value="4.776635939146927" />
+      <entry key="S5" value="6.927245037488718" />
+      <entry key="S10" value="8.152613650131318" />
+      <entry key="S30" value="16.54239612696503" />
+      <entry key="S60" value="34.287762983137554" />
+      <entry key="M2" value="59.72975405908683" />
+      <entry key="M5" value="89.54926880012279" />
+      <entry key="M10" value="104.03501294785369" />
+      <entry key="M15" value="109.68581329978818" />
+      <entry key="M30" value="115.93035331289218" />
+      <entry key="H1" value="119.34178257394413" />
+      <entry key="H2" value="121.1368056318313" />
+      <entry key="H4" value="122.05942136124699" />
+      <entry key="D1" value="122.84194750991588" />
+      <entry key="W1" value="122.97738892809029" />
     </decayedShown>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4,
@@ -337,12 +333,36 @@
       <updated>1778541322299</updated>
       <workItem from="1779937367481" duration="5671000" />
       <workItem from="1779944973108" duration="3959000" />
-      <workItem from="1781739623476" duration="10293000" />
+      <workItem from="1781739623476" duration="10547000" />
     </task>
+    <task id="LOCAL-00001" summary="feat: api gemini">
+      <option name="closed" value="true" />
+      <created>1781757659577</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1781757659578</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: api gemini" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: api gemini" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
