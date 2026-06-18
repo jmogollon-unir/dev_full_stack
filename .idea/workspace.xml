@@ -1,33 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
+    <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1105ce-3e63-4cf4-be7a-6bbe444a7267" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/replace/ReplaceBookCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/replace/ReplaceBookCommandHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/create/event/OrderCreatedEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/create/event/OrderCreatedEventListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/search/SearchBooksQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/search/SearchBooksQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/search/SearchBooksQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/search/SearchBooksQueryHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/update/UpdateBookCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/update/UpdateBookCommandHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/domain/model/enums/BookFormat.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/domain/model/enums/BookFormat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/presentation/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/presentation/controller/BookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/OrdersApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/OrdersApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/common/OrderItemDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/common/OrderItemDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/create/CreateOrderCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/create/CreateOrderCommandHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/find/GetOrderByIdQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/find/GetOrderByIdQueryHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/status/UpdateOrderStatusCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/status/UpdateOrderStatusCommandHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/status/UpdateStatusDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/infrastructure/feign/CatalogueClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/infrastructure/feign/CatalogueClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/presentation/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/presentation/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/resources/application.yml" afterDir="false" />
-    </list>
+    <list default="true" id="ba1105ce-3e63-4cf4-be7a-6bbe444a7267" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -137,8 +114,10 @@
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -148,6 +127,7 @@
     "Spring Boot.EurekaServerApplication.executor": "Debug",
     "Spring Boot.OrdersApplication.executor": "Debug",
     "Spring Boot.RelatosdepapelApplication.executor": "Run",
+    "cidr.known.project.marker": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "main",
@@ -193,25 +173,8 @@
         <option value="SpringBootApplicationConfigurationType" />
       </set>
     </option>
-    <option name="configurationStatuses">
-      <map>
-        <entry key="SpringBootApplicationConfigurationType">
-          <value>
-            <map>
-              <entry key="CatalogueApplication" value="STOPPED" />
-              <entry key="OrdersApplication" value="STOPPED" />
-            </map>
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.EurekaServerApplication">
-    <configuration default="true" type="JetRunConfigurationType">
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager">
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <option name="filePath" />
       <method v="2" />
@@ -256,12 +219,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Spring Boot.CatalogueApplication" />
-        <item itemvalue="Spring Boot.ApiGatewayApplication" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -271,6 +228,7 @@
       </set>
     </attachedChunks>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="ba1105ce-3e63-4cf4-be7a-6bbe444a7267" name="Changes" comment="" />
