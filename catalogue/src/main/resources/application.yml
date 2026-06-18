@@ -13,6 +13,12 @@ spring:
     hibernate:
       ddl-auto: validate # Esquema definido en books_catalogue.sql (IDs INT)
     show-sql: true # Para ver las consultas en consola
+  elasticsearch:
+    uris: ${ELASTICSEARCH_URIS:http://localhost:9200}
+
+catalogue:
+  elasticsearch:
+    reindex-on-startup: ${CATALOGUE_REINDEX_ON_STARTUP:true}
 
 eureka:
   client:

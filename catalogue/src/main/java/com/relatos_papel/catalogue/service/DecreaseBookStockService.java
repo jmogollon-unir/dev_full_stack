@@ -4,6 +4,7 @@ import com.relatos_papel.catalogue.controller.model.StockDecreaseDto;
 import com.relatos_papel.catalogue.exception.ResourceNotFoundException;
 import com.relatos_papel.catalogue.repository.BookJpaRepository;
 import com.relatos_papel.catalogue.repository.model.Book;
+import com.relatos_papel.catalogue.search.service.BookSearchIndexer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class DecreaseBookStockService {
 
     private final BookJpaRepository bookJpaRepository;
+    private final BookSearchIndexer bookSearchIndexer;
 
     @Transactional
     public void decreaseStock(Integer bookId, StockDecreaseDto request) {
@@ -31,6 +33,7 @@ public class DecreaseBookStockService {
         }
 
         book.setStock(book.getStock() - quantity);
-        bookJpaRepository.save(book);
+        Book savedBook = bookJpaRepository.save(book);
+        bookSearchIndexer.save(savedBook);
     }
 }
