@@ -7,6 +7,7 @@ import com.relatos_papel.catalogue.repository.BookJpaRepository;
 import com.relatos_papel.catalogue.repository.GenreJpaRepository;
 import com.relatos_papel.catalogue.repository.model.Book;
 import com.relatos_papel.catalogue.repository.model.enums.BookFormat;
+import com.relatos_papel.catalogue.search.service.BookSearchIndexer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ public class UpdateBooksService {
 
     private final BookJpaRepository bookJpaRepository;
     private final GenreJpaRepository genreJpaRepository;
+    private final BookSearchIndexer bookSearchIndexer;
 
     @Transactional
     public BookDto updateBook(Integer bookId, SaveBookDto request) {
@@ -41,6 +43,7 @@ public class UpdateBooksService {
         }
 
         Book savedBook = bookJpaRepository.save(book);
+        bookSearchIndexer.save(savedBook);
         return BookDto.mapToDto(savedBook);
     }
 
@@ -67,6 +70,7 @@ public class UpdateBooksService {
         }
 
         Book savedBook = bookJpaRepository.save(book);
+        bookSearchIndexer.save(savedBook);
         return BookDto.mapToDto(savedBook);
     }
 }

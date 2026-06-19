@@ -1,0 +1,53 @@
+{
+  "mappings": {
+    "properties": {
+      "bookId": {
+        "type": "integer"
+      },
+      "title": {
+        "type": "text"
+      },
+      "author": {
+        "type": "text"
+      },
+      "isbn": {
+        "type": "keyword"
+      },
+      "price": {
+        "type": "double"
+      },
+      "stock": {
+        "type": "integer"
+      },
+      "coverUrl": {
+        "type": "keyword",
+        "index": false
+      },
+      "description": {
+        "type": "text"
+      },
+      "genreId": {
+        "type": "integer"
+      },
+      "genreName": {
+        "type": "text"
+      },
+      "format": {
+        "type": "keyword"
+      },
+      "language": {
+        "type": "keyword"
+      },
+      "publicationDate": {
+        "type": "date",
+        "format": "date"
+      },
+      "popularity": {
+        "type": "integer"
+      },
+      "isAvailable": {
+        "type": "boolean"
+      }
+    }
+  }
+}

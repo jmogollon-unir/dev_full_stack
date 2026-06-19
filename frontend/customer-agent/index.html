@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Relatos de Papel | Agente de atención</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="workspace" aria-label="Agente de atención al cliente">
+        <aside class="sidebar">
+          <div>
+            <p class="eyebrow">Relatos de Papel</p>
+            <h1>Agente de atención</h1>
+            <p class="subtitle">Consulta catálogo, revisa pedidos y acompaña compras que disparan el correo asincrónico del microservicio communications.</p>
+          </div>
+
+          <div class="status-panel">
+            <div class="status-row">
+              <span class="dot" id="apiDot"></span>
+              <span id="apiStatus">Gateway sin verificar</span>
+            </div>
+            <div class="status-row">
+              <span class="dot muted" id="wsDot"></span>
+              <span id="wsStatus">WebSocket opcional</span>
+            </div>
+          </div>
+
+          <form class="settings" id="settingsForm">
+            <label>
+              Gateway
+              <input id="gatewayUrl" type="url" value="http://localhost:8080" />
+            </label>
+            <label>
+              Usuario demo
+              <input id="userId" type="number" min="1" value="1" />
+            </label>
+            <button type="submit">Actualizar conexión</button>
+          </form>
+        </aside>
+
+        <section class="agent">
+          <header class="agent-header">
+            <div>
+              <p class="eyebrow">Customer care</p>
+              <h2>Conversación</h2>
+            </div>
+            <button id="clearChat" type="button" aria-label="Limpiar conversación">Limpiar</button>
+          </header>
+
+          <div class="messages" id="messages" aria-live="polite"></div>
+
+          <div class="quick-actions" aria-label="Acciones rápidas">
+            <button type="button" data-prompt="buscar libros populares">Libros populares</button>
+            <button type="button" data-prompt="consultar pedido 1">Pedido #1</button>
+            <button type="button" data-prompt="ver pedidos del usuario 1">Pedidos usuario</button>
+            <button type="button" data-prompt="ayuda">Ayuda</button>
+          </div>
+
+          <form class="composer" id="chatForm">
+            <input id="messageInput" type="text" autocomplete="off" placeholder="Ej. buscar libros de García Márquez, pedido 3, comprar 1 x 2" />
+            <button type="submit">Enviar</button>
+          </form>
+        </section>
+
+        <aside class="toolbox" aria-label="Panel de apoyo">
+          <section class="panel">
+            <div class="panel-header">
+              <h2>Resultados</h2>
+              <button id="refreshBooks" type="button">Actualizar</button>
+            </div>
+            <div class="results" id="results"></div>
+          </section>
+
+          <section class="panel order-panel">
+            <h2>Crear pedido demo</h2>
+            <form id="orderForm">
+              <label>
+                Libro ID
+                <input id="bookId" type="number" min="1" value="1" />
+              </label>
+              <label>
+                Cantidad
+                <input id="quantity" type="number" min="1" value="1" />
+              </label>
+              <button type="submit">Crear pedido y enviar correo</button>
+            </form>
+            <p class="hint">Al crear la orden, `orders` publica el evento y `communications` envía la confirmación por correo.</p>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

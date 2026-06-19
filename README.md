@@ -27,6 +27,7 @@ Arquitectura de **microservicios** independientes (`catalogue`, `orders`, `users
 | Persistencia | Spring Data JPA, Hibernate, MySQL |
 | Microservicios | Netflix Eureka, Spring Cloud Gateway |
 | Mensajería | RabbitMQ (eventos de pedidos → correos) |
+| Búsqueda | Elasticsearch (`catalogue` consulta el índice `books`) |
 | Build | Maven (`mvnw` incluido) |
 | Base de datos | MySQL 8 (Docker) |
 
@@ -87,6 +88,7 @@ Arquitectura de **microservicios** independientes (`catalogue`, `orders`, `users
 
 - Consumo de eventos RabbitMQ al crear pedidos.
 - Envío de correo de confirmación al usuario.
+- Front de agente de atención al cliente en `frontend/customer-agent`, conectado al API Gateway para consultar catálogo, consultar pedidos y crear pedidos demo que disparan el correo asincrónico.
 
 ## API REST
 
@@ -141,7 +143,7 @@ Colección Postman: `docs/Backend - Relatos Papel.postman_collection.json`.
               │                   COMMUNICATIONS (:8083)
               │                           │
               └───────────────────────────┘
-                              ▼
+                              ▼Se agregó la integración de catalogue con Elasticsearch según la actividad 3: ahora las consultas de libros se hacen contra el índice books, mientras que las operaciones de escritura siguen usando MySQL y sincronizan Elasticsearch al crear, actualizar, eliminar o descontar stock. También se agregó el mapping del índice y una nota de uso de IA para la vídeo-memoria. Además, se incorporó un frontend de agente de atención al cliente en frontend/customer-agent, conectado al API Gateway para buscar libros, consultar pedidos y crear pedidos demo que disparan el flujo asincrónico orders -> RabbitMQ -> communications -> correo. Se ajustó CORS en el API Gateway para permitir el front local y se actualizó el README con Elasticsearch 9.2.8, comandos de ejecución y pasos de verificación. El entorno local fue probado con Docker, MySQL, RabbitMQ, Elasticsearch, Eureka, catalogue, orders, communications, api-gateway y el front corriendo correctamente.
                          Gmail SMTP
 ```
 
@@ -189,6 +191,13 @@ Usuario: `root` / Contraseña: `mysql`
 **Catalogue:**
 
 - Con ayuda del file **catalogue/db/books_catalogue.sql** se pueden crear las tablas de la base de datos y completar con datos de mocks
+- Elasticsearch para consultas:
+
+```bash
+docker run --name books_elasticsearch -p 9200:9200 -e discovery.type=single-node -e xpack.security.enabled=false -d docker.elastic.co/elasticsearch/elasticsearch:9.2.8
+```
+
+El microservicio `catalogue` indexa los libros de MySQL al arrancar y sincroniza el índice `books` en cada creación, actualización, eliminación o descuento de stock.
 
 **Orders:**
 
@@ -237,6 +246,14 @@ Panel RabbitMQ: `http://localhost:15672/` — usuario `dwfs` / contraseña `admi
 ### 6. Verificar
 
 - REST vía Gateway: `http://localhost:8080/api/...`
+- Agente de atención al cliente:
+
+```bash
+cd frontend/customer-agent
+node server.cjs
+```
+
+Abrir `http://localhost:5173`.
 
 ## Integrantes
 
