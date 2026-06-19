@@ -8,6 +8,7 @@ spring:
     # Spring Cloud 2025 + starter gateway-server-webflux: rutas y CORS bajo server.webflux
     # (spring.cloud.gateway.* sin "server.webflux" ya no aplica y devuelve 404 en todas las rutas).
     gateway:
+<<<<<<< HEAD
       server:
         webflux:
           globalcors:
@@ -54,11 +55,69 @@ spring:
               uri: lb:ws://communications
               predicates:
                 - Path=/ws-api/v1/communications/**
+=======
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]': # Es mejor usar [/**] para que aplique a todas las rutas
+            allowed-origins:
+              - "http://localhost:5176"
+              - "http://localhost:5173"
+              - "http://localhost:5177"
+            allowed-methods: # IMPORTANTE: Debe llevar espacio después del guion
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+            allowed-headers:
+              - "*"
+            exposed-headers:
+              - Authorization # Espacio después del guion
+            allow-credentials: true
+
+      discovery:
+        locator:
+          enabled: false
+
+      # AQUÍ VAN LAS RUTAS (Corregida la indentación)
+routes:
+        - id: catalogue_service_route
+          uri: lb://catalogue
+          predicates:
+            - Path=/api/books,/api/books/**
+
+        - id: orders_service_route
+          uri: lb://orders
+          predicates:
+            - Path=/api/orders,/api/orders/**
+
+        - id: users_service_route
+          uri: lb://users
+          predicates:
+            - Path=/api/users,/api/users/**
+
+        # RUTA DE TOKENS EXACTA (Sin espacios en el Path)
+        - id: tokens_service_route
+          uri: lb://users
+          predicates:
+            - Path=/api/tokens,/api/tokens/**
+
+        - id: communications_websocket_route
+          uri: lb:ws://communications
+          predicates:
+            - Path=/ws-api/v1/communications/**
+>>>>>>> 9f533c0d49dc694d06b34dec912d4f9f1d3571cf
 
 eureka:
   client:
     service-url:
+<<<<<<< HEAD
       defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
+=======
+      defaultZone: http://localhost:8761/eureka/
+>>>>>>> 9f533c0d49dc694d06b34dec912d4f9f1d3571cf
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}

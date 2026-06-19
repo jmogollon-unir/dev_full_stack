@@ -9,7 +9,8 @@ import com.relato_papel.users.service.model.SessionValidationResponse;
 import com.relato_papel.users.utils.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import org.springframework.util.DigestUtils;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,7 +30,12 @@ public class AuthService {
         }
 
         User user = userOptional.get();
-        if (!user.getPassword().equals(password)) {
+        
+        // 1. Convertimos la contraseña de texto plano (Postman) a MD5
+        String md5Password = DigestUtils.md5DigestAsHex(password.getBytes(StandardCharsets.UTF_8));
+        
+        // 2. Comparamos el MD5 generado con el MD5 de la base de datos
+        if (!user.getPassword().equals(md5Password)) {
             return Optional.empty();
         }
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Stack backend Relatos de Papel (MySQL, Redis, RabbitMQ, Eureka, microservicios, API Gateway).
 # Front-end: ejecutar en local (FRONT/) apuntando a http://localhost:8080
 #
@@ -36,12 +37,116 @@ services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: rp-rabbitmq
+=======
+# Relatos de Papel — stack completo
+# Uso: docker compose up -d --build
+# API Gateway: http://localhost:8080
+# API Gateway Sec.: http://localhost:8085
+# Eureka:       http://localhost:8761
+# RabbitMQ UI:  http://localhost:15672  (dwfs / admin)
+
+x-spring-eureka-env: &spring-eureka-env
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+  EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+
+x-spring-rabbit-env: &spring-rabbit-env
+  RABBITMQ_HOST: rabbitmq
+  RABBITMQ_PORT: 5672
+  RABBITMQ_USER: dwfs
+  RABBITMQ_PASSWORD: admin
+  RABBITMQ_VHOST: /
+  SPRING_RABBITMQ_HOST: rabbitmq
+  SPRING_RABBITMQ_PORT: 5672
+  SPRING_RABBITMQ_USERNAME: dwfs
+  SPRING_RABBITMQ_PASSWORD: admin
+
+services:
+  # ─── Infraestructura ───────────────────────────────────────────────────────
+
+  mysql-catalogue:
+    image: mysql:8.4
+    container_name: mysql-catalogue
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: books_catalogue
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-catalogue-data:/var/lib/mysql
+      - ./catalogue/src/main/resources/db/books_catalogue.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-pmysql"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - relatos-papel-net
+
+  mysql-orders:
+    image: mysql:8.4
+    container_name: mysql-orders
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: books_orders
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql-orders-data:/var/lib/mysql
+      - ./orders/src/main/resources/db/books_orders.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-pmysql"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - relatos-papel-net
+
+  mysql-users:
+    image: mysql:8.4
+    container_name: mysql-users
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: books_users
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql-users-data:/var/lib/mysql
+      - ./docker/mysql/users/init.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-pmysql"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - relatos-papel-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - relatos-papel-net
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+>>>>>>> 9f533c0d49dc694d06b34dec912d4f9f1d3571cf
     environment:
       RABBITMQ_DEFAULT_USER: dwfs
       RABBITMQ_DEFAULT_PASS: admin
     ports:
       - "5672:5672"
       - "15672:15672"
+<<<<<<< HEAD
 
   mailhog:
     image: mailhog/mailhog
@@ -49,19 +154,50 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"
+=======
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - relatos-papel-net
+
+  # ─── Service discovery ─────────────────────────────────────────────────────
+>>>>>>> 9f533c0d49dc694d06b34dec912d4f9f1d3571cf
 
   eureka-server:
     build:
       context: ./eureka-server
       dockerfile: Dockerfile
+<<<<<<< HEAD
     container_name: rp-eureka
     ports:
       - "8761:8761"
+=======
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      <<: *spring-eureka-env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 40s
+    networks:
+      - relatos-papel-net
+
+  # ─── Microservicios ────────────────────────────────────────────────────────
+>>>>>>> 9f533c0d49dc694d06b34dec912d4f9f1d3571cf
 
   catalogue:
     build:
       context: ./catalogue
       dockerfile: Dockerfile
+<<<<<<< HEAD
     container_name: rp-catalogue
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/books_catalogue?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
@@ -75,11 +211,29 @@ services:
         condition: service_healthy
       eureka-server:
         condition: service_started
+=======
+    container_name: catalogue
+    ports:
+      - "8081:8081"
+    environment:
+      <<: *spring-eureka-env
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-catalogue:3306/books_catalogue?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: mysql
+    depends_on:
+      mysql-catalogue:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - relatos-papel-net
+>>>>>>> 9f533c0d49dc694d06b34dec912d4f9f1d3571cf
 
   orders:
     build:
       context: ./orders
       dockerfile: Dockerfile
+<<<<<<< HEAD
     container_name: rp-orders
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/books_orders?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
@@ -98,11 +252,31 @@ services:
         condition: service_started
       rabbitmq:
         condition: service_started
+=======
+    container_name: orders
+    ports:
+      - "8082:8082"
+    environment:
+      <<: [*spring-eureka-env, *spring-rabbit-env]
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-orders:3306/books_orders?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: mysql
+    depends_on:
+      mysql-orders:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - relatos-papel-net
+>>>>>>> 9f533c0d49dc694d06b34dec912d4f9f1d3571cf
 
   users:
     build:
       context: ./users
       dockerfile: Dockerfile
+<<<<<<< HEAD
     container_name: rp-users
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/books_users?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
@@ -123,11 +297,35 @@ services:
         condition: service_started
       redis:
         condition: service_started
+=======
+    container_name: users
+    ports:
+      - "8086:8086"
+    environment:
+      <<: [*spring-eureka-env, *spring-rabbit-env]
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-users:3306/books_users?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: mysql
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+    depends_on:
+      mysql-users:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - relatos-papel-net
+>>>>>>> 9f533c0d49dc694d06b34dec912d4f9f1d3571cf
 
   communications:
     build:
       context: ./communications
       dockerfile: Dockerfile
+<<<<<<< HEAD
     container_name: rp-communications
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
@@ -152,11 +350,35 @@ services:
         condition: service_started
       mailhog:
         condition: service_started
+=======
+    container_name: communications
+    ports:
+      - "8083:8083"
+    environment:
+      <<: [*spring-eureka-env, *spring-rabbit-env]
+      SPRING_MAIL_USERNAME: ${EMAIL_USERNAME:-}
+      SPRING_MAIL_PASSWORD: ${EMAIL_PASSWORD:-}
+      EMAIL_USERNAME: ${EMAIL_USERNAME:-}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD:-}
+      NOTIFICATION_EMAIL: ${NOTIFICATION_EMAIL:-}
+      FROM_EMAIL: ${FROM_EMAIL:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - relatos-papel-net
+
+  # ─── Gateways ───────────────────────────────────────────────────────────────
+>>>>>>> 9f533c0d49dc694d06b34dec912d4f9f1d3571cf
 
   api-gateway:
     build:
       context: ./api-gateway
       dockerfile: Dockerfile
+<<<<<<< HEAD
     container_name: rp-gateway
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
@@ -171,3 +393,49 @@ services:
 
 volumes:
   rp_mysql_data:
+=======
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      <<: *spring-eureka-env
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      catalogue:
+        condition: service_started
+      orders:
+        condition: service_started
+      users:
+        condition: service_started
+      communications:
+        condition: service_started
+    networks:
+      - relatos-papel-net
+
+  gateway-secured:
+    build:
+      context: ./gateway_secured
+      dockerfile: Dockerfile
+    container_name: gateway-secured
+    ports:
+      - "8085:8085"
+    environment:
+      <<: [*spring-eureka-env, *spring-rabbit-env]
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      users:
+        condition: service_started
+    networks:
+      - relatos-papel-net
+
+networks:
+  relatos-papel-net:
+    driver: bridge
+
+volumes:
+  mysql-catalogue-data:
+  mysql-orders-data:
+  mysql-users-data:
+>>>>>>> 9f533c0d49dc694d06b34dec912d4f9f1d3571cf
