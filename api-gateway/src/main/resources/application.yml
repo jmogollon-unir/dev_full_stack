@@ -4,33 +4,68 @@ server:
 spring:
   application:
     name: api-gateway
+
   cloud:
     gateway:
-      server:
-        webflux:
-          discovery:
-            locator:
-              enabled: false
-          routes:
-            - id: catalogue_service_route
-              uri: lb://catalogue
-              predicates:
-                - Path=/api/books,/api/books/**
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/]':
+            allowed-origins:
 
-            - id: orders_service_route
-              uri: lb://orders
-              predicates:
-                - Path=/api/orders,/api/orders/**
+              - "http://localhost:5176"
+              - "http://localhost:5173"
+              - "http://localhost:5177"
+            allowed-methods:
+              -GET
+              -POST
+              -PUT
+              -PATCH
+              -DELETE
+              -OPTIONS
+            allowed-headers:
+              "*"
+            exposed-headers:
+              -Authorization
+            allow-credentials: true
 
-            - id: communications_websocket_route
-              uri: lb:ws://communications
-              predicates:
-                - Path=/ws-api/v1/communications/**
+          server:
+            webflux:
+              discovery:
+                locator:
+                  enabled: false
+
+              routes:
+
+                - id: catalogue_service_route
+                  uri: lb://catalogue
+                  predicates:
+                    - Path=/api/books,/api/books/**
+
+
+
+                - id: orders_service_route
+                  uri: lb://orders
+                  predicates:
+                    - Path=/api/orders,/api/orders/**
+
+
+                - id: users_service_route
+                  uri: lb://users
+                  predicates:
+                   - Path=/api/users,/api/users/**
+
+
+                - id: communications_websocket_route
+                  uri: lb:ws://communications
+                  predicates:
+                    - Path=/ws-api/v1/communications/**
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
