@@ -5,28 +5,60 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba1105ce-3e63-4cf4-be7a-6bbe444a7267" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/replace/ReplaceBookCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/replace/ReplaceBookCommandHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/create/event/OrderCreatedEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/create/event/OrderCreatedEventListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway_secured/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway_secured/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway_secured/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway_secured/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway_secured/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway_secured/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway_secured/src/main/java/com/relatos_papel/gateway_secured/GatewaySecuredApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway_secured/src/main/java/com/relatos_papel/gateway_secured/config/WebClientConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway_secured/src/main/java/com/relatos_papel/gateway_secured/filter/AuthenticationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway_secured/src/main/java/com/relatos_papel/gateway_secured/model/SessionValidationResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway_secured/src/main/java/com/relatos_papel/gateway_secured/service/AuthService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway_secured/src/main/java/com/relatos_papel/gateway_secured/service/exception/ExpiredSessionException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway_secured/src/main/java/com/relatos_papel/gateway_secured/service/exception/InvalidSessionException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway_secured/src/main/resources/application.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway_secured/src/test/java/com/relatos_papel/gateway_secured/GatewaySecuredApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/UsersApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/config/ObjectMapperConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/config/RedisConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/controller/TokenController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/controller/dto/LoginRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/controller/dto/RefreshResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/controller/dto/RefreshTokenResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/controller/dto/SessionResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/controller/dto/TokenResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/controller/dto/UserDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/repository/sessions/RedisSessionRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/repository/sessions/model/RedisSessionData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/repository/users/UserJpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/repository/users/model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/service/AuthService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/service/model/SessionStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/service/model/SessionValidationResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/utils/JwtUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/resources/application.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/main/resources/db/schema.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/src/test/java/com/relato_papel/users/UsersApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/search/SearchBooksQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/search/SearchBooksQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/search/SearchBooksQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/search/SearchBooksQueryHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/update/UpdateBookCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/application/book/update/UpdateBookCommandHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/domain/model/enums/BookFormat.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/domain/model/enums/BookFormat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/presentation/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/presentation/controller/BookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/OrdersApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/OrdersApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/common/OrderItemDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/common/OrderItemDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/create/CreateOrderCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/create/CreateOrderCommandHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/find/GetOrderByIdQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/find/GetOrderByIdQueryHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/status/UpdateOrderStatusCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/status/UpdateOrderStatusCommandHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/application/order/status/UpdateStatusDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/infrastructure/feign/CatalogueClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/infrastructure/feign/CatalogueClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/presentation/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/presentation/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/communications/src/main/java/com/relatos_papel/communications/events/config/RabbitConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/communications/src/main/java/com/relatos_papel/communications/events/listener/OrderEventListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/communications/src/main/java/com/relatos_papel/communications/events/model/EventHeader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/communications/src/main/java/com/relatos_papel/communications/events/model/OrderCreatedEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/communications/src/main/java/com/relatos_papel/communications/events/model/OrderCreatedEventBody.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/communications/src/main/java/com/relatos_papel/communications/events/model/OrderItemEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/communications/src/main/java/com/relatos_papel/communications/events/service/EmailService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/src/main/resources/db/example_queries.sql" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/resources/db/example_queries.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,8 +111,19 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="francisco" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/jmogollon-unir/dev_full_stack.git",
+    "accountId": "87cff59b-8af0-4030-808a-c64d6adbda9c"
+  }
+}]]></component>
   <component name="HttpClientEndpointsTabState">
     <option name="cachedRequestData" value="&lt;CachedHttpClientTabRequests&gt;&#10;  &lt;entry key=&quot;2486b5af81153da5684412f5b83421c5cb860805&quot; value=&quot;###&amp;#10;PUT http://localhost:8081/api/books/{{id}}&amp;#10;Content-Type: application/json&amp;#10;&amp;#10;{&amp;#10;  &amp;quot;title&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;author&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;isbn&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;price&amp;quot;: {},&amp;#10;  &amp;quot;stock&amp;quot;: 0,&amp;#10;  &amp;quot;coverUrl&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;description&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;genreId&amp;quot;: 0,&amp;#10;  &amp;quot;format&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;language&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;publicationDate&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;isAvailable&amp;quot;: false&amp;#10;}&quot; /&gt;&#10;&lt;/CachedHttpClientTabRequests&gt;" />
   </component>
@@ -143,17 +186,19 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "SHELLCHECK.PATH": "/Users/juliethmogollon/Library/Application Support/JetBrains/IntelliJIdea2026.1/plugins/Shell Script/shellcheck",
-    "Spring Boot.ApiGatewayApplication.executor": "Debug",
-    "Spring Boot.CatalogueApplication.executor": "Debug",
-    "Spring Boot.EurekaServerApplication.executor": "Debug",
-    "Spring Boot.OrdersApplication.executor": "Debug",
+    "Spring Boot.ApiGatewayApplication.executor": "Run",
+    "Spring Boot.CatalogueApplication.executor": "Run",
+    "Spring Boot.EurekaServerApplication.executor": "Run",
+    "Spring Boot.GatewaySecuredApplication.executor": "Run",
+    "Spring Boot.OrdersApplication.executor": "Run",
     "Spring Boot.RelatosdepapelApplication.executor": "Run",
+    "Spring Boot.UsersApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "francisco-javier",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/juliethmogollon/Documents/Files/Documentos/U-Unir/Cursos/Master/Dev/Repo/dev_full_stack/orders/src/main/resources",
+    "last_opened_file_path": "E:/dev_full_stack/users/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -163,23 +208,32 @@
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "directory",
+      "module",
+      "repository"
+    ],
     "DatabaseDriversLRU": [
+      "mysql",
       "mysql_aurora"
     ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/orders/src/main/resources" />
-      <recent name="$PROJECT_DIR$/orders" />
-      <recent name="$PROJECT_DIR$/catalogue" />
+      <recent name="E:\dev_full_stack\users\src\main\resources" />
+      <recent name="E:\dev_full_stack\gateway_secured\src\main\java\com\relatos_papel\gateway_secured" />
+      <recent name="E:\dev_full_stack" />
+      <recent name="E:\dev_full_stack\users\src\main\java" />
+      <recent name="E:\dev_full_stack\users\users\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\dev_full_stack" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/docs" />
     </key>
@@ -198,15 +252,19 @@
         <entry key="SpringBootApplicationConfigurationType">
           <value>
             <map>
+              <entry key="ApiGatewayApplication" value="STOPPED" />
               <entry key="CatalogueApplication" value="STOPPED" />
+              <entry key="EurekaServerApplication" value="STOPPED" />
+              <entry key="GatewaySecuredApplication" value="STOPPED" />
               <entry key="OrdersApplication" value="STOPPED" />
+              <entry key="UsersApplication" value="STOPPED" />
             </map>
           </value>
         </entry>
       </map>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.EurekaServerApplication">
+  <component name="RunManager" selected="Spring Boot.ApiGatewayApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -249,6 +307,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="GatewaySecuredApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="gateway_secured" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.relatos_papel.gateway_secured.GatewaySecuredApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="OrdersApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="orders" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.relatos_papel.orders.OrdersApplication" />
@@ -256,10 +321,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UsersApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="users" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.relato_papel.users.UsersApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.CatalogueApplication" />
         <item itemvalue="Spring Boot.ApiGatewayApplication" />
+        <item itemvalue="Spring Boot.CatalogueApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -280,11 +352,25 @@
       <updated>1778541322299</updated>
       <workItem from="1779937367481" duration="5671000" />
       <workItem from="1779944973108" duration="3959000" />
+      <workItem from="1781657251769" duration="3971000" />
+      <workItem from="1781661581746" duration="3154000" />
+      <workItem from="1781815907559" duration="36666000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

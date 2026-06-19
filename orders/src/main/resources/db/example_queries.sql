@@ -25,6 +25,7 @@ ORDER BY o.order_date DESC
 -- ========================================
 -- 3. OBTENER DETALLES DE UN PEDIDO
 -- ========================================
+use books_orders;
 SELECT
     o.order_id,
     o.order_date,
