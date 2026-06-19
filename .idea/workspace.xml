@@ -3,6 +3,9 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BackgroundAgentGlobalSettings">
+    <option name="selectedModelId" value="auto" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="ba1105ce-3e63-4cf4-be7a-6bbe444a7267" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/gateway_secured/.gitattributes" afterDir="false" />
@@ -95,6 +98,7 @@
   <component name="CopilotPersistence">
     <persistenceIdMap>
       <entry key="_C:/Users/Leonardo/Documents/JAVA/relatos-papel-back/api-gateway" value="3DbCKxMnXZ0LPXsgL9n5131fhJD" />
+      <entry key="_C:/Users/Leonardo/Documents/MASTER/dev_full_stack" value="3FHkwksBBT9PbCHqfRmY9AszuRR" />
     </persistenceIdMap>
   </component>
   <component name="CopilotUserSelectedModel">
@@ -102,6 +106,10 @@
       <entry key="agent-panel" value="Auto" />
       <entry key="chat-panel" value="Auto" />
     </selectedModels>
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="104" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -145,6 +153,68 @@
     <commands />
     <urls />
   </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.017712020890988" />
+      <entry key="MS500" value="1.8005776208614876" />
+      <entry key="S2" value="5.059154751390686" />
+      <entry key="S5" value="7.060620584662453" />
+      <entry key="S10" value="8.224208867650121" />
+      <entry key="S30" value="16.575040849555123" />
+      <entry key="S60" value="34.313618230228705" />
+      <entry key="M2" value="59.749703031266456" />
+      <entry key="M5" value="89.56050712103458" />
+      <entry key="M10" value="104.04140809090157" />
+      <entry key="M15" value="109.6902763241225" />
+      <entry key="M30" value="115.9326944972616" />
+      <entry key="H1" value="119.3429830310569" />
+      <entry key="H2" value="121.13741371110727" />
+      <entry key="H4" value="122.05972741817456" />
+      <entry key="D1" value="122.84199880457363" />
+      <entry key="W1" value="122.97739626294994" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.19759738301837462" />
+      <entry key="MS500" value="1.2234559816829031" />
+      <entry key="S2" value="4.776635939146927" />
+      <entry key="S5" value="6.927245037488718" />
+      <entry key="S10" value="8.152613650131318" />
+      <entry key="S30" value="16.54239612696503" />
+      <entry key="S60" value="34.287762983137554" />
+      <entry key="M2" value="59.72975405908683" />
+      <entry key="M5" value="89.54926880012279" />
+      <entry key="M10" value="104.03501294785369" />
+      <entry key="M15" value="109.68581329978818" />
+      <entry key="M30" value="115.93035331289218" />
+      <entry key="H1" value="119.34178257394413" />
+      <entry key="H2" value="121.1368056318313" />
+      <entry key="H4" value="122.05942136124699" />
+      <entry key="D1" value="122.84194750991588" />
+      <entry key="W1" value="122.97738892809029" />
+    </decayedShown>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4,
   &quot;fromUser&quot;: false
@@ -156,14 +226,14 @@
   <component name="ProjectSessionTemplates">
     <option name="panelTemplate">
       <template>
-        <option name="modeId" value="Agent" />
+        <option name="modeId" value="Ask" />
         <option name="model">
           <model>
             <option name="modelType" value="builtin_family" />
             <option name="modelValue" value="auto" />
           </model>
         </option>
-        <option name="targetType" value="LOCAL" />
+        <option name="targetType" value="BACKGROUND" />
       </template>
     </option>
   </component>
@@ -241,10 +311,10 @@
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>
+        <option value="CompoundRunConfigurationType" />
         <option value="KtorApplicationConfigurationType" />
         <option value="MicronautRunConfigurationType" />
         <option value="QuarkusRunConfigurationType" />
-        <option value="SpringBootApplicationConfigurationType" />
       </set>
     </option>
     <option name="configurationStatuses">
@@ -274,7 +344,7 @@
       <option name="filePath" />
       <method v="2" />
     </configuration>
-    <configuration name="ApiGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="ApiGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="api-gateway" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.relatos_papel.api_gateway.ApiGatewayApplication" />
       <extension name="coverage">
@@ -296,6 +366,14 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommunicationsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="communications" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.relatos_papel.communications.CommunicationsApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -338,8 +416,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151" />
-        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151" />
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.25134.95" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.25134.95" />
       </set>
     </attachedChunks>
   </component>
@@ -356,6 +434,15 @@
       <workItem from="1781661581746" duration="3154000" />
       <workItem from="1781815907559" duration="36666000" />
     </task>
+    <task id="LOCAL-00001" summary="feat: api gemini">
+      <option name="closed" value="true" />
+      <created>1781757659577</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1781757659578</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
