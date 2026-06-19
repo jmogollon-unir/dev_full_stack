@@ -56,12 +56,11 @@ Arquitectura de **microservicios** independientes (`catalogue`, `orders`, `users
 │   ├── repository/
 │   │   └── model/
 │   └── service/
-├── communications/                                  # Notificaciones (:8083)
-│   ├── events/
-│   │   ├── config/
-│   │   ├── listener/
-│   │   ├── model/
-│   │   └── service/
+├── users/                                           # Autenticación y perfil (:8086)
+│   └── … (JPA + Redis sesiones, JWT)
+├── communications/                                  # Correos + agente chat (:8083)
+│   ├── events/ …
+│   └── chat/ …
 ├── api-gateway/                                     # Punto de entrada único (:8080)
 ├── docs/
 │   ├── books_catalogue.png
@@ -76,6 +75,7 @@ Arquitectura de **microservicios** independientes (`catalogue`, `orders`, `users
 
 - CRUD de libros con géneros.
 - Búsqueda por título, autor, ISBN, categoría, rating, popularidad y disponibilidad.
+- **Opcional (enunciado):** lecturas desde Elasticsearch y sincronización tras escrituras en BD relacional — **no implementado** en esta rama; las consultas siguen usando MySQL.
 
 ### Microservicio Orders (`:8082`)
 
@@ -83,14 +83,42 @@ Arquitectura de **microservicios** independientes (`catalogue`, `orders`, `users
 - Consulta de pedido por ID.
 - Listado de pedidos por usuario.
 
+### Microservicio Users (`:8086`)
+
+- Login con CIF + contraseña (MD5 en cliente).
+- JWT (`accessToken`) + sesión opaca (`sessionToken`) en Redis (patrón **phantom token**).
+- Perfil: `GET /api/v1/users/{cif}` con `Authorization: Bearer <sessionToken>` **a través del gateway**; el gateway valida el opaco contra `users` y reenvía el JWT en el header `accessToken`.
+
+### API Gateway (defensa y phantom token)
+
+- Rutas **públicas** (sin `Authorization`): `OPTIONS`, `POST /api/v1/tokens`, `POST /api/v1/tokens/{id}/renewals`, `GET /api/books` y `GET /api/books/**`, handshake WebSocket bajo `/ws-api/**`.
+- Resto de rutas: el cliente envía `Authorization: Bearer <sessionToken>`. El gateway llama a `GET http://users/api/v1/tokens/{sessionToken}` (balanceo Eureka), y si la sesión es válida **elimina** `Authorization` y añade **`accessToken: <JWT>`** hacia el microservicio destino.
+
 ### Microservicio Communications (`:8083`)
 
-- Consumo de eventos RabbitMQ al crear pedidos.
-- Envío de correo de confirmación al usuario.
+- Consumo de eventos RabbitMQ al crear pedidos y envío de correo (SMTP configurable por variables de entorno).
+- Agente de chat (Gemini) vía WebSocket: `ws://localhost:8080/ws-api/v1/communications/chat` (a través del Gateway).
 
 ## API REST
 
 Todas las rutas REST se consumen a través del **API Gateway** en `http://localhost:8080`.
+
+### Users
+
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| `POST` | `/api/v1/tokens` | Login (`username` = CIF, `password` = MD5) → `{ accessToken, sessionToken }` |
+| `POST` | `/api/v1/tokens/{sessionToken}/renewals` | Renovar sesión |
+| `GET` | `/api/v1/tokens/{sessionToken}` | Validar sesión |
+| `GET` | `/api/v1/users/{cif}` | Perfil (vía gateway: `Authorization: Bearer <sessionToken>`; el microservicio recibe `accessToken` con el JWT) |
+
+**Datos de prueba** (ver `users/src/main/resources/db/schema.sql` y pedidos en `orders` para `userId` 1–3):
+
+| CIF | Contraseña | userId pedidos |
+|-----|------------|----------------|
+| `B12345678` | `123456` | 1 |
+| `B87654321` | `password123` | 2 |
+| `B11223344` | `admin2025` | 3 |
 
 ### Catalogue
 
@@ -107,11 +135,13 @@ Todas las rutas REST se consumen a través del **API Gateway** en `http://localh
 
 ### Orders
 
+Requieren pasar por el gateway con sesión: el cliente envía `Authorization: Bearer <sessionToken>`; el servicio `orders` recibe **`accessToken`** (JWT) y comprueba que el `userId` del token coincida con el cuerpo o la ruta.
+
 | Método | Ruta | Descripción |
 |--------|------|-------------|
-| `POST` | `/api/orders` | Crear pedido |
-| `GET` | `/api/orders/{id}` | Obtener pedido por ID |
-| `GET` | `/api/orders/user/{userId}` | Pedidos de un usuario |
+| `POST` | `/api/orders` | Crear pedido (`userId` debe coincidir con el claim JWT) |
+| `GET` | `/api/orders/{id}` | Obtener pedido (solo si pertenece al usuario del token) |
+| `GET` | `/api/orders/user/{userId}` | Pedidos de un usuario (`userId` = claim del JWT) |
 
 Colección Postman: `docs/Backend - Relatos Papel.postman_collection.json`.
 
@@ -127,14 +157,14 @@ Colección Postman: `docs/Backend - Relatos Papel.postman_collection.json`.
                    │   API Gateway   │
                    └────────┬────────┘
                             │
-              ┌─────────────┼─────────────┐
-              ▼             ▼             ▼
-     Eureka Server    CATALOGUE      ORDERS
-        (:8761)        (:8081)       (:8082)
-              │             │             │
-              │             ▼             ▼
-              │      books_catalogue  books_orders
-              │       (MySQL :3307)  (MySQL :3308)
+              ┌─────────────┼─────────────┬──────────────┐
+              ▼             ▼             ▼              ▼
+     Eureka Server    CATALOGUE      ORDERS         USERS
+        (:8761)        (:8081)       (:8082)        (:8086)
+              │             │             │              │
+              │             ▼             ▼              ▼
+              │      books_catalogue  books_orders   books_users
+              │       (MySQL)         (MySQL)        (MySQL) + Redis
               │                           │
               │                           │ RabbitMQ
               │                           ▼
@@ -142,7 +172,7 @@ Colección Postman: `docs/Backend - Relatos Papel.postman_collection.json`.
               │                           │
               └───────────────────────────┘
                               ▼
-                         Gmail SMTP
+                    SMTP (correo) / Gemini (chat)
 ```
 
 ## Modelo de datos
@@ -169,74 +199,55 @@ git clone git@github.com:jmogollon-unir/dev_full_stack.git
 cd dev_full_stack
 ```
 
-### 2. Bases de datos MySQL con Docker
+### 2. Opción A — Todo el backend con Docker Compose (recomendado)
+
+Desde la raíz `dev_full_stack/`:
 
 ```bash
-docker pull mysql:latest
-
-# Catalogue → puerto host 3307
-docker run -p 3307:3306 --name books_catalogue -e MYSQL_ROOT_PASSWORD=mysql -d mysql:latest
-
-# Orders → puerto host 3308
-docker run -p 3308:3306 --name books_orders -e MYSQL_ROOT_PASSWORD=mysql -d mysql:latest
+cp .env.example .env   # opcional: EMAIL_*, GEMINI_API_KEY
+docker compose up --build
 ```
 
-### 3. Cargar esquema y datos
+Esto levanta **MySQL** (puerto host **3307**), **Redis**, **RabbitMQ** (UI en **15672**), **Eureka**, **catalogue**, **orders**, **users**, **communications** y **api-gateway** (**8080**).
 
-Desde la raíz del proyecto (o con DataGrip / MySQL Workbench):
-Usuario: `root` / Contraseña: `mysql`
+- El **front-end** no va en Docker: en la carpeta `../FRONT` ejecuta `npm install && npm run dev` y define `VITE_GATEWAY_URL=http://localhost:8080` (ver `FRONT/.env.example`).
 
-**Catalogue:**
+### 3. Opción B — Infra en Docker y microservicios en IntelliJ
 
-- Con ayuda del file **catalogue/db/books_catalogue.sql** se pueden crear las tablas de la base de datos y completar con datos de mocks
+Si prefieres correr los JAR desde el IDE:
 
-**Orders:**
+1. `docker compose up mysql redis rabbitmq` (o los contenedores equivalentes que ya uses).
+2. Carga los SQL en MySQL: `books_catalogue`, `books_orders`, `books_users` (puertos locales típicos 3307 / 3308 / 3309 según `application.yml`).
+3. Arranca en orden: Eureka → Orders → Catalogue → Users (con Redis) → Communications → API Gateway.
 
-- Con ayuda del file **orders/db/books_orders.sql** se pueden crear las tablas de la base de datos y completar con datos de mocks
+### 4. Variables útiles (Docker / local)
 
-### 4. Configuración de aplicación
+| Variable | Uso |
+|----------|-----|
+| `SPRING_DATASOURCE_URL` | JDBC (compose ya lo define para los servicios) |
+| `EUREKA_CLIENT_SERVICEURL_DEFAULTZONE` | URL de Eureka |
+| `REDIS_HOST` / `REDIS_PORT` | Sesiones del micro `users` |
+| `RABBITMQ_*` | Pedidos → communications |
+| `EMAIL_USERNAME` / `EMAIL_PASSWORD` | SMTP para correos de pedido |
+| `GEMINI_API_KEY` | Agente de chat en communications |
 
-Credenciales por defecto en `application.yml` de cada microservicio:
+### 5. Arranque manual (orden recomendado)
 
-| Servicio | JDBC URL / Infra | Puerto app |
-|----------|------------------|------------|
-| catalogue | `jdbc:mysql://localhost:3307/books_catalogue` | 8081 |
-| orders | `jdbc:mysql://localhost:3308/books_orders` | 8082 |
-| communications | RabbitMQ `:5672` + SMTP Gmail | 8083 |
-| api-gateway | Eureka | 8080 |
-
-### 5. Configuración de servicio de envío de correos 
-
-```bash
-docker run -it --name rabbitmq -p 5672:5672 -p 15672:15672 -e RABBITMQ_DEFAULT_USER=dwfs -e RABBITMQ_DEFAULT_PASS=admin rabbitmq:latest
-```
-
-#### Habilitar panel de administración (dentro del contenedor)
-
-```bash
-rabbitmq-plugins enable rabbitmq_management
-```
-
-Panel RabbitMQ: `http://localhost:15672/` — usuario `dwfs` / contraseña `admin`
-
-#### Correo
-- user: grupo18.unir2026@gmail.com
-- pass: Grupo18.admin
-
-### 6. Arrancar los microservicios
-
-**Orden de arranque recomendado:** en IntelliJ IDEA:
-
-1. MySQL (Docker) + RabbitMQ (Docker)
+1. Infra: MySQL, Redis, RabbitMQ.
 2. `EurekaServerApplication` (:8761)
 3. `OrdersApplication` (:8082)
 4. `CatalogueApplication` (:8081)
-5. `CommunicationsApplication` (:8083)
-6. `ApiGatewayApplication` (:8080)
+5. `UsersApplication` (:8086)
+6. `CommunicationsApplication` (:8083)
+7. `ApiGatewayApplication` (:8080)
 
 ### 6. Verificar
 
-- REST vía Gateway: `http://localhost:8080/api/...`
+- API Gateway: `http://localhost:8080/api/books`, `/api/orders`, `/api/v1/tokens`
+- Eureka: `http://localhost:8761`
+- WebSocket agente (front): `ws://localhost:8080/ws-api/v1/communications/chat`
+- Web UI de correos de prueba (MailHog): `http://localhost:8025` cuando usas `docker compose`.
+- Colección Postman: `docs/Backend - Relatos Papel.postman_collection.json` (`baseUrl=http://localhost:8080`, variable `jwt` tras el login)
 
 ## Integrantes
 

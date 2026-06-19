@@ -1,0 +1,173 @@
+# Stack backend Relatos de Papel (MySQL, Redis, RabbitMQ, Eureka, microservicios, API Gateway).
+# Front-end: ejecutar en local (FRONT/) apuntando a http://localhost:8080
+#
+# Uso:
+#   docker compose up --build
+#
+# Puertos: 8080 gateway, 8081 catalogue, 8082 orders, 8083 communications, 8086 users, 8761 eureka,
+#          3307 MySQL, 6379 Redis, 5672 RabbitMQ, 15672 RabbitMQ UI, 8025 MailHog UI (correos de prueba)
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: rp-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+    ports:
+      - "3307:3306"
+    volumes:
+      - rp_mysql_data:/var/lib/mysql
+      - ./catalogue/src/main/resources/db/books_catalogue.sql:/docker-entrypoint-initdb.d/01-catalogue.sql:ro
+      - ./orders/src/main/resources/db/books_orders.sql:/docker-entrypoint-initdb.d/02-orders.sql:ro
+      - ./users/src/main/resources/db/schema.sql:/docker-entrypoint-initdb.d/03-users.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-pmysql"]
+      interval: 8s
+      timeout: 5s
+      retries: 20
+      start_period: 40s
+
+  redis:
+    image: redis:7-alpine
+    container_name: rp-redis
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rp-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: dwfs
+      RABBITMQ_DEFAULT_PASS: admin
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: rp-mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+  eureka-server:
+    build:
+      context: ./eureka-server
+      dockerfile: Dockerfile
+    container_name: rp-eureka
+    ports:
+      - "8761:8761"
+
+  catalogue:
+    build:
+      context: ./catalogue
+      dockerfile: Dockerfile
+    container_name: rp-catalogue
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/books_catalogue?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: mysql
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+    ports:
+      - "8081:8081"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+
+  orders:
+    build:
+      context: ./orders
+      dockerfile: Dockerfile
+    container_name: rp-orders
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/books_orders?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: mysql
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: dwfs
+      RABBITMQ_PASSWORD: admin
+    ports:
+      - "8082:8082"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+
+  users:
+    build:
+      context: ./users
+      dockerfile: Dockerfile
+    container_name: rp-users
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/books_users?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: mysql
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: dwfs
+      RABBITMQ_PASSWORD: admin
+    ports:
+      - "8086:8086"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+      redis:
+        condition: service_started
+
+  communications:
+    build:
+      context: ./communications
+      dockerfile: Dockerfile
+    container_name: rp-communications
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: dwfs
+      RABBITMQ_PASSWORD: admin
+      SPRING_MAIL_HOST: mailhog
+      SPRING_MAIL_PORT: "1025"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: "false"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: "false"
+      EMAIL_USERNAME: "dev@relatos.local"
+      EMAIL_PASSWORD: ""
+      NOTIFICATION_EMAIL: dev@relatos.local
+      FROM_EMAIL: "Relatos de papel <dev@relatos.local>"
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    ports:
+      - "8083:8083"
+    depends_on:
+      eureka-server:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+      mailhog:
+        condition: service_started
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: rp-gateway
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka-server
+      - catalogue
+      - orders
+      - users
+      - communications
+
+volumes:
+  rp_mysql_data:

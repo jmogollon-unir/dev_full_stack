@@ -145,9 +145,9 @@ INSERT INTO pay_methods (method_name, description, is_active) VALUES
 -- DML: INSERTAR USUARIOS
 -- ========================================
 INSERT INTO users (user_id, username, email, first_name, last_name) VALUES
-                                                                        (1, 'julieth_mogollon', 'julieth@example.com', 'Julieth', 'Mogollon'),
-                                                                        (2, 'carlos_ruiz', 'carlos@example.com', 'Carlos', 'Ruiz'),
-                                                                        (3, 'ana_lopez', 'ana@example.com', 'Ana', 'López'),
+                                                                        (1, 'techstore_madrid', 'contacto@techstore.com', 'TechStore', 'Madrid'),
+                                                                        (2, 'digital_office', 'info@digitaloffice.es', 'Digital', 'Office'),
+                                                                        (3, 'innovacorp', 'admin@innovacorp.com', 'InnovaCorp', 'Sistemas'),
                                                                         (4, 'miguel_torres', 'miguel@example.com', 'Miguel', 'Torres'),
                                                                         (5, 'pedro_gomez', 'pedro@example.com', 'Pedro', 'Gómez'),
                                                                         (6, 'maria_sanchez', 'maria@example.com', 'María', 'Sánchez');

@@ -1,6 +1,6 @@
 package com.relato_papel.users.controller;
 
-import com.relato_papel.users.controller.dto.UserDto;
+import com.relato_papel.users.controller.dto.UserProfileDto;
 import com.relato_papel.users.repository.users.UserJpaRepository;
 import com.relato_papel.users.repository.users.model.User;
 import com.relato_papel.users.utils.JwtUtils;
@@ -21,52 +21,65 @@ public class UserController {
     private final UserJpaRepository userRepository;
     private final JwtUtils jwtUtils;
 
-    /**
-     * Obtiene el perfil del usuario autenticado.
-     * El userId se obtiene del token JWT.
-     * @param userId ID del usuario (path variable)
-     * @param token Header de autorización con el token JWT
-     * @return Perfil del usuario o error si no está autorizado
-     */
     @GetMapping("/{userId}")
     public ResponseEntity<?> getUserProfile(@PathVariable String userId,
-                                          @RequestHeader("accessToken") String token) {
+                                            @RequestHeader(value = "Authorization", required = false) String authorization,
+                                            @RequestHeader(value = "accessToken", required = false) String accessTokenHeader) {
 
-        // Validar que el header Authorization esté presente y tenga el formato correcto
-        if (token == null) {
+        // El gateway inyecta el JWT en accessToken; el cliente suele enviar el opaco en Authorization.
+        String token = accessTokenHeader;
+        if (token == null || token.isBlank()) {
+            token = resolveBearer(authorization);
+        }
+
+        if (token == null || token.isBlank()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token de autorización requerido");
         }
 
-        // Extraer el token del header (remover "Bearer ")
         if (!jwtUtils.validateToken(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token inválido o expirado");
         }
 
         String tokenUserId = jwtUtils.getCifFromToken(token);
-        // Verificar que el userId del token coincida con el path parameter
-        if (!tokenUserId.equals(userId)) {
+        if (tokenUserId == null || !tokenUserId.equals(userId)) {
             log.warn("Intento de acceso no autorizado al perfil de usuario: {}", userId);
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No autorizado para acceder a este perfil");
         }
 
-        // Buscar el usuario en la base de datos
         Optional<User> userOptional = userRepository.findByCif(String.valueOf(userId));
         if (userOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
         User user = userOptional.get();
-        // Crear el DTO sin incluir información sensible como la contraseña
-        UserDto userDto = new UserDto(
-            user.getName(),
-            user.getEmail(),
-            user.getPhone(),
-            user.getAddress(),
-            user.getCif(),
-            user.getSector(),
-            user.getEmployees(),
-            user.getFoundedYear()
-        );
-        return ResponseEntity.ok(userDto);
+        UserProfileDto profile = UserProfileDto.builder()
+                .userId(user.getId())
+                .name(user.getName())
+                .email(user.getEmail())
+                .phone(user.getPhone())
+                .address(user.getAddress())
+                .cif(user.getCif())
+                .sector(user.getSector())
+                .employees(user.getEmployees())
+                .foundedYear(user.getFoundedYear())
+                .company(UserProfileDto.Company.builder()
+                        .name(user.getName())
+                        .email(user.getEmail())
+                        .phone(user.getPhone())
+                        .address(user.getAddress())
+                        .sector(user.getSector())
+                        .employees(user.getEmployees())
+                        .foundedYear(user.getFoundedYear())
+                        .build())
+                .build();
+
+        return ResponseEntity.ok(profile);
+    }
+
+    private static String resolveBearer(String authorization) {
+        if (authorization == null || !authorization.regionMatches(true, 0, "Bearer ", 0, 7)) {
+            return null;
+        }
+        return authorization.substring(7).trim();
     }
 }

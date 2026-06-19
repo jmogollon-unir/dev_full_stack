@@ -1,12 +1,11 @@
 
 server:
-  port: 8086 # El puerto de este microservicio
+  port: ${SERVER_PORT:8086}
 
 spring:
   application:
     name: users
 
-  ## RabbitMQ Configuration
   rabbitmq:
     host: ${RABBITMQ_HOST:localhost}
     port: ${RABBITMQ_PORT:5672}
@@ -15,25 +14,30 @@ spring:
     virtual-host: ${RABBITMQ_VHOST:/}
 
   datasource:
-    url: jdbc:mysql://localhost:3309/books_users?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: root
-    password: mysql
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3309/books_users?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:mysql}
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
-      ddl-auto: validate # Esquema definido en books_orders.sql (IDs INT)
-    show-sql: true # Para ver las consultas en consola
+      ddl-auto: validate
+    show-sql: true
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
   instance:
     prefer-ip-address: true
-    # Forzamos que el ID de registro en Eureka sea con la IP y el puerto
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
 
-## RabbitMQ Event Configuration
 rabbitmq:
   exchange:
     orders: orders.created

@@ -4,72 +4,71 @@ server:
 spring:
   application:
     name: api-gateway
-
   cloud:
+    # Spring Cloud 2025 + starter gateway-server-webflux: rutas y CORS bajo server.webflux
+    # (spring.cloud.gateway.* sin "server.webflux" ya no aplica y devuelve 404 en todas las rutas).
     gateway:
-      globalcors:
-        add-to-simple-url-handler-mapping: true
-        cors-configurations:
-          '[/]':
-            allowed-origins:
+      server:
+        webflux:
+          globalcors:
+            add-to-simple-url-handler-mapping: true
+            cors-configurations:
+              '[/**]':
+                allowed-origins:
+                  - "http://localhost:5173"
+                  - "http://localhost:5174"
+                  - "http://localhost:5175"
+                  - "http://localhost:5176"
+                  - "http://localhost:5177"
+                allowed-methods:
+                  - GET
+                  - POST
+                  - PUT
+                  - PATCH
+                  - DELETE
+                  - OPTIONS
+                allowed-headers: "*"
+                exposed-headers:
+                  - Authorization
+                allow-credentials: true
+          discovery:
+            locator:
+              enabled: false
+          routes:
+            - id: catalogue_service_route
+              uri: lb://catalogue
+              predicates:
+                - Path=/api/books,/api/books/**
 
-              - "http://localhost:5176"
-              - "http://localhost:5173"
-              - "http://localhost:5177"
-            allowed-methods:
-              -GET
-              -POST
-              -PUT
-              -PATCH
-              -DELETE
-              -OPTIONS
-            allowed-headers:
-              "*"
-            exposed-headers:
-              -Authorization
-            allow-credentials: true
+            - id: orders_service_route
+              uri: lb://orders
+              predicates:
+                - Path=/api/orders,/api/orders/**
 
-          server:
-            webflux:
-              discovery:
-                locator:
-                  enabled: false
+            - id: users_service_route
+              uri: lb://users
+              predicates:
+                - Path=/api/v1/**
 
-              routes:
-
-                - id: catalogue_service_route
-                  uri: lb://catalogue
-                  predicates:
-                    - Path=/api/books,/api/books/**
-
-
-
-                - id: orders_service_route
-                  uri: lb://orders
-                  predicates:
-                    - Path=/api/orders,/api/orders/**
-
-
-                - id: users_service_route
-                  uri: lb://users
-                  predicates:
-                   - Path=/api/users,/api/users/**
-
-
-                - id: communications_websocket_route
-                  uri: lb:ws://communications
-                  predicates:
-                    - Path=/ws-api/v1/communications/**
+            - id: communications_websocket_route
+              uri: lb:ws://communications
+              predicates:
+                - Path=/ws-api/v1/communications/**
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
-
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
 
 logging:
   level:
-    org.springframework.cloud.gateway: TRACE
+    org.springframework.cloud.gateway: INFO
+
+# false = no validar token opaco en el gateway (útil si users no está o demos en Postman).
+# En producción o integración real: require-access-token: true
+app:
+  security:
+    require-access-token: false

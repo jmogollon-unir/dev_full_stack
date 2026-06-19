@@ -1,6 +1,11 @@
 server:
   port: 8082 # El puerto de este microservicio
 
+# Alineado con el gateway: false = aceptar pedidos sin header accessToken (solo demos).
+app:
+  security:
+    require-access-token: false
+
 spring:
   application:
     name: orders
@@ -14,9 +19,9 @@ spring:
     virtual-host: ${RABBITMQ_VHOST:/}
 
   datasource:
-    url: jdbc:mysql://localhost:3308/books_orders?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: root
-    password: mysql
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3308/books_orders?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:mysql}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -26,7 +31,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
   instance:
     prefer-ip-address: true
     # Forzamos que el ID de registro en Eureka sea con la IP y el puerto

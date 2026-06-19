@@ -276,6 +276,69 @@
       ]
     },
     {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Login (password MD5)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"B12345678\",\n  \"password\": \"e10adc3949ba59abbe56e057f20f883e\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tokens",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tokens"
+              ]
+            },
+            "description": "Contraseña en claro del seed: 123456 → MD5. Respuesta: accessToken (JWT) + sessionToken (opaco para /renewals)."
+          }
+        },
+        {
+          "name": "Get profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/B12345678",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "B12345678"
+              ]
+            },
+            "description": "Copia el accessToken (JWT) del login en la variable {{jwt}}."
+          }
+        }
+      ]
+    },
+    {
       "name": "Catalogue",
       "item": [
         {
@@ -922,6 +985,10 @@
   "variable": [
     {
       "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "jwt",
       "value": ""
     }
   ]
