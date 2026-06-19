@@ -13,15 +13,24 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(AbstractHttpConfigurer::disable).cors(cors -> cors.configure(http)) // Asegura activar el filtro de CORS de Spring
-                .csrf(AbstractHttpConfigurer::disable)
+            // 1. Desactivamos CSRF (Obligatorio para que Postman y Frontend puedan hacer POST)
+            .csrf(AbstractHttpConfigurer::disable)
+            
+            // 2. Usamos modo Stateless porque gestionaremos la sesión con nuestros propios Tokens en Redis
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            
+            // 3. Configuramos qué rutas son públicas y cuáles no
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/v1/tokens/**").permitAll() // Endpoints de sesión sin autenticación
-                .requestMatchers("/api/v1/users/**").permitAll() // Permitir usuarios, validación manual en controller
-                .anyRequest().denyAll()
+                // Permitimos acceso a los endpoints de tokens (Login, Refresh, Validar)
+                .requestMatchers("/api/tokens", "/api/tokens/**").permitAll()
+                
+                // Permitimos acceso al endpoint de usuarios (porque tu UserController ya valida el JWT manualmente)
+                .requestMatchers("/api/users", "/api/users/**").permitAll()
+                
+                // Todo lo demás sí requerirá autenticación
+                .anyRequest().authenticated() 
             );
 
         return http.build();

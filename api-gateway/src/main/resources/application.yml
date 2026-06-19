@@ -10,62 +10,60 @@ spring:
       globalcors:
         add-to-simple-url-handler-mapping: true
         cors-configurations:
-          '[/]':
+          '[/**]': # Es mejor usar [/**] para que aplique a todas las rutas
             allowed-origins:
-
               - "http://localhost:5176"
               - "http://localhost:5173"
               - "http://localhost:5177"
-            allowed-methods:
-              -GET
-              -POST
-              -PUT
-              -PATCH
-              -DELETE
-              -OPTIONS
+            allowed-methods: # IMPORTANTE: Debe llevar espacio después del guion
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
             allowed-headers:
-              "*"
+              - "*"
             exposed-headers:
-              -Authorization
+              - Authorization # Espacio después del guion
             allow-credentials: true
 
-          server:
-            webflux:
-              discovery:
-                locator:
-                  enabled: false
+      discovery:
+        locator:
+          enabled: false
 
-              routes:
+      # AQUÍ VAN LAS RUTAS (Corregida la indentación)
+routes:
+        - id: catalogue_service_route
+          uri: lb://catalogue
+          predicates:
+            - Path=/api/books,/api/books/**
 
-                - id: catalogue_service_route
-                  uri: lb://catalogue
-                  predicates:
-                    - Path=/api/books,/api/books/**
+        - id: orders_service_route
+          uri: lb://orders
+          predicates:
+            - Path=/api/orders,/api/orders/**
 
+        - id: users_service_route
+          uri: lb://users
+          predicates:
+            - Path=/api/users,/api/users/**
 
+        # RUTA DE TOKENS EXACTA (Sin espacios en el Path)
+        - id: tokens_service_route
+          uri: lb://users
+          predicates:
+            - Path=/api/tokens,/api/tokens/**
 
-                - id: orders_service_route
-                  uri: lb://orders
-                  predicates:
-                    - Path=/api/orders,/api/orders/**
-
-
-                - id: users_service_route
-                  uri: lb://users
-                  predicates:
-                   - Path=/api/users,/api/users/**
-
-
-                - id: communications_websocket_route
-                  uri: lb:ws://communications
-                  predicates:
-                    - Path=/ws-api/v1/communications/**
+        - id: communications_websocket_route
+          uri: lb:ws://communications
+          predicates:
+            - Path=/ws-api/v1/communications/**
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
-
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
