@@ -42,11 +42,11 @@ public class BookSearchService {
                 .is(criteria.getVisible() != null ? criteria.getVisible() : Boolean.TRUE);
 
         if (criteria.getTitle() != null) {
-            elasticCriteria = elasticCriteria.and(new Criteria("title").contains(criteria.getTitle()));
+            elasticCriteria = addTextCriteria(elasticCriteria, "title", criteria.getTitle());
         }
 
         if (criteria.getAuthor() != null) {
-            elasticCriteria = elasticCriteria.and(new Criteria("author").contains(criteria.getAuthor()));
+            elasticCriteria = addTextCriteria(elasticCriteria, "author", criteria.getAuthor());
         }
 
         if (criteria.getIsbn() != null) {
@@ -70,9 +70,22 @@ public class BookSearchService {
         }
 
         if (criteria.getCategoryName() != null) {
-            elasticCriteria = elasticCriteria.and(new Criteria("genreName").contains(criteria.getCategoryName()));
+            elasticCriteria = addTextCriteria(elasticCriteria, "genreName", criteria.getCategoryName());
         }
 
         return elasticCriteria;
+    }
+
+    private Criteria addTextCriteria(Criteria baseCriteria, String field, String value) {
+        String normalizedValue = value == null ? "" : value.trim();
+        if (normalizedValue.isBlank()) {
+            return baseCriteria;
+        }
+
+        Criteria result = baseCriteria;
+        for (String token : normalizedValue.split("\\s+")) {
+            result = result.and(new Criteria(field).contains(token));
+        }
+        return result;
     }
 }

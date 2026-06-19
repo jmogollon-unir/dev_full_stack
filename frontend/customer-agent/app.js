@@ -225,6 +225,14 @@ async function answerLocally(text) {
   if (normalized.includes("buscar") || normalized.includes("libro")) {
     const query = normalized
       .replace("buscar", "")
+      .replace("busca", "")
+      .replace("muéstrame", "")
+      .replace("muestrame", "")
+      .replace("muestra", "")
+      .replace("muestras", "")
+      .replace("mostrar", "")
+      .replace("ver", "")
+      .replace("me", "")
       .replace("libros", "")
       .replace("libro", "")
       .trim();
