@@ -56,3 +56,8 @@ email:
   notification:
     to: ${NOTIFICATION_EMAIL:grupo18.unir2026@gmail.com}
     from: ${FROM_EMAIL:Relatos de papel - Pedido creado <grupo18.unir2026@gmail.com>}
+
+gemini:
+  api:
+    key: "AIzaSyBQi2bAt3HLGrfQYfE56Tf29NPMTbScq6M"
+    url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key="
