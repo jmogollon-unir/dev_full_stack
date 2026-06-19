@@ -8,27 +8,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba1105ce-3e63-4cf4-be7a-6bbe444a7267" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/exception/ResourceNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/src/main/java/com/relatos_papel/catalogue/exception/ResourceNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/communications/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/communications/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Backend - Relatos Papel.postman_collection.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Backend - Relatos Papel.postman_collection.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/orders/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/controller/OrdersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/com/relatos_papel/orders/controller/OrdersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/resources/db/books_orders.sql" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/resources/db/books_orders.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/users/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/config/RedisConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/config/RedisConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalogue/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/communications/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/communications/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eureka-server/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/eureka-server/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/orders/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/users/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/controller/TokenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/controller/TokenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/controller/dto/TokenResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/controller/dto/TokenResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/controller/dto/UserDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/users/src/main/java/com/relato_papel/users/service/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/users/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/src/main/resources/db/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/users/src/main/resources/db/schema.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -20,7 +20,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-<<<<<<< HEAD
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -50,26 +49,3 @@ public class SecurityConfig {
         return source;
     }
 }
-=======
-            // 1. Desactivamos CSRF (Obligatorio para que Postman y Frontend puedan hacer POST)
-            .csrf(AbstractHttpConfigurer::disable)
-            
-            // 2. Usamos modo Stateless porque gestionaremos la sesión con nuestros propios Tokens en Redis
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            
-            // 3. Configuramos qué rutas son públicas y cuáles no
-            .authorizeHttpRequests(auth -> auth
-                // Permitimos acceso a los endpoints de tokens (Login, Refresh, Validar)
-                .requestMatchers("/api/tokens", "/api/tokens/**").permitAll()
-                
-                // Permitimos acceso al endpoint de usuarios (porque tu UserController ya valida el JWT manualmente)
-                .requestMatchers("/api/users", "/api/users/**").permitAll()
-                
-                // Todo lo demás sí requerirá autenticación
-                .anyRequest().authenticated() 
-            );
-
-        return http.build();
-    }
-}
->>>>>>> 9f533c0d49dc694d06b34dec912d4f9f1d3571cf
