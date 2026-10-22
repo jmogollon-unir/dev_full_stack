@@ -1,0 +1,29 @@
+# Base de datos para desarrollo local: UNA sola BD (relatos_papel) con todas las tablas.
+# Las tablas y los datos de ejemplo los crea la propia aplicación (Flyway) en el primer arranque.
+#
+#   docker compose up -d        # levanta MySQL en localhost:3307
+#   docker compose down -v      # apaga y BORRA los datos (la app los vuelve a crear al arrancar)
+#
+# Conexión (DataGrip / IntelliJ): host localhost, puerto 3307, usuario root, contraseña mysql, BD relatos_papel
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: rp-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: relatos_papel
+    ports:
+      - "3307:3306"
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - rp_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-pmysql"]
+      interval: 8s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+volumes:
+  rp_mysql_data:

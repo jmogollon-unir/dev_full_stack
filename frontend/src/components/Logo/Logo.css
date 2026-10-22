@@ -1,0 +1,32 @@
+.brand-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 12px;
+    padding: 10px;
+}
+
+.logo-img {
+    height: 50px; /* Ajusta según prefieras */
+    width: auto;
+}
+
+.brand-text-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.brand-title {
+    margin: 0;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: bold;
+    line-height: 1.1;
+}
+
+.brand-slogan {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.75rem;
+}

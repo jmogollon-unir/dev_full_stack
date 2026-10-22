@@ -1,0 +1,316 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    /* Evita que el scroll horizontal aparezca a nivel global */
+    overflow-x: hidden;
+}
+
+
+/* =========================================
+   RESETEO Y CONTENEDOR PRINCIPAL
+   ========================================= */
+* {
+    box-sizing: border-box;
+    /* Crucial para que nada se corte */
+}
+
+.landing-container {
+    background: #ffffff;
+    width: 100%;
+    overflow-x: hidden;
+    /* Evita scroll horizontal */
+}
+
+/* =========================================
+   HERO SECTION (BANNER PRINCIPAL)
+   ========================================= */
+.hero-section {
+    position: relative;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+/* =========================================
+   NAVEGACIÓN SUPERIOR (LOGO + BOTONES)
+   ========================================= */
+.hero-navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 4%;
+    /* Padding lateral en porcentaje para evitar cortes */
+    z-index: 100;
+}
+
+.hero-nav-buttons {
+    display: flex;
+    gap: 12px;
+    flex-shrink: 0;
+    /* Evita que los botones se achiquen si el logo es grande */
+}
+
+/* Estilo de botones tipo "píldora" */
+.nav-btn-login,
+.nav-btn-register {
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    white-space: nowrap;
+    /* Mantiene el texto en una sola línea */
+}
+
+/* Iniciar Sesión: Efecto Vidrio (Glassmorphism) */
+.nav-btn-login {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(8px);
+}
+
+.nav-btn-login:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Registrarse: Verde Esmeralda sólido */
+.nav-btn-register {
+    background: #00796b;
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.nav-btn-register:hover {
+    background: #004d40;
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   CONTENIDO DEL HERO (TEXTO CENTRAL)
+   ========================================= */
+.hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    /* Ajuste fluido de tamaño */
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.cta-button {
+    background: #0f766e;
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.cta-button:hover {
+    background: #115e59;
+}
+
+/* =========================================
+   RECOMENDACIONES (GRILLA DE LIBROS)
+   ========================================= */
+.recommendations-section {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #111827;
+    margin-bottom: 40px;
+}
+
+.recommendations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 25px;
+}
+
+.rec-card {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.rec-card:hover {
+    transform: translateY(-5px);
+}
+
+.rec-card-image {
+    aspect-ratio: 2/3;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
+}
+
+.rec-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rec-book-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+}
+
+.rec-book-author {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+/* =========================================
+   SECCIÓN ESENCIA (INFO & FEATURES)
+   ========================================= */
+.essence-section {
+    background: #f9fafb;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.essence-title {
+    font-size: 2.2rem;
+    margin-bottom: 24px;
+    color: #111827;
+}
+
+.essence-text {
+    max-width: 900px;
+    margin: 0 auto 60px;
+    color: #4b5563;
+    line-height: 1.8;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-item {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.feature-icon {
+    font-size: 2rem;
+    color: #0f766e;
+    margin-bottom: 15px;
+}
+
+/* =========================================
+   RESPONSIVE (MÓVILES)
+   ========================================= */
+@media (max-width: 768px) {
+    .hero-navbar {
+        padding: 20px 15px;
+    }
+
+    .hero-nav-buttons {
+        gap: 8px;
+    }
+
+    .nav-btn-login,
+    .nav-btn-register {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .hero-section {
+        height: 70vh;
+    }
+}
+
+.nav-btn-user,
+.nav-btn-logout {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+    /* Efecto Vidrio para que combine con el Hero */
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(8px);
+}
+
+.nav-btn-user:hover,
+.nav-btn-logout:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Ajuste para que los iconos de Bootstrap se centren bien */
+.nav-btn-user i,
+.nav-btn-logout i {
+    display: flex;
+}

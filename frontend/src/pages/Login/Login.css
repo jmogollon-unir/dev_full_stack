@@ -1,0 +1,251 @@
+/* Estilos para la página de login */
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 32px 20px;
+  box-sizing: border-box;
+  background:
+          linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+          url('/src/assets/home_img.jpg') center center / cover no-repeat;
+}
+
+.login-container {
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.28);
+  padding: 36px;
+  width: 100%;
+  max-width: 430px;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+.login-header h1 {
+  color: #0f172a;
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+
+}
+
+.login-subtitle {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.login-form {
+  margin-bottom: 30px;
+}
+
+.error-banner {
+  background: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  border-left: 4px solid #c62828;
+  font-weight: 500;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  color: #111827;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid #dbe3ee;
+  border-radius: 999px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+  background: #f8fafc;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #0f766e;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
+}
+
+.form-group input.error {
+  border-color: #d32f2f;
+}
+
+.form-group input:disabled {
+  background: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.error-message {
+  display: block;
+  color: #d32f2f;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+.login-button {
+  width: 100%;
+  background: #0f766e;
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 999px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.login-button:hover:not(:disabled) {
+  background: #115e59;
+  transform: translateY(-1px);
+}
+
+.login-link {
+  margin-top: 14px;
+  background: none;
+  border: none;
+  color: #0f766e;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.login-register .login-link {
+  margin-top: 0;
+  font-weight: bold;
+}
+
+.login-link:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #64748b;
+  font-size: 0.9rem;
+  margin-bottom: 18px;
+}
+
+.login-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.demo-credentials {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 18px;
+}
+
+.demo-credentials h3 {
+  color: #0f172a;
+  font-size: 1rem;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.demo-list {
+  display: grid;
+  gap: 8px;
+}
+
+.demo-item {
+  background: #f8fafc;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  border: 1px solid #e2e8f0;
+  display: grid;
+  gap: 4px;
+}
+
+.demo-item strong {
+  color: #0f172a;
+}
+
+.demo-item span {
+  color: #475569;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login {
+    padding: 10px;
+    min-height: 60vh;
+  }
+
+  .login-container {
+    padding: 30px 20px;
+  }
+
+  .login-header h1 {
+    font-size: 1.7rem;
+  }
+}
+
+/* Modo oscuro */
+.main-content.dark .login-container {
+  background: #2d2d2d;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.main-content.dark .login-header h1 {
+  color: #389cd1;
+}
+
+.main-content.dark .login-header p {
+  color: #ccc;
+}
+
+.main-content.dark .form-group label {
+  color: #fff;
+}
+
+.main-content.dark .form-group input {
+  background: #3a3a3a;
+  border-color: #555;
+  color: #fff;
+}
+
+.main-content.dark .form-group input:focus {
+  border-color: #389cd1;
+}
+
+.main-content.dark .form-group input::placeholder {
+  color: #aaa;
+}
+
+.main-content.dark .demo-credentials {
+  border-top-color: #444;
+}
+
+.main-content.dark .demo-credentials h3 {
+  color: #ccc;
+}
+
+.main-content.dark .demo-item {
+  background: #3a3a3a;
+  color: #ccc;
+}

@@ -1,0 +1,332 @@
+/* Estilos para el perfil (layout nuevo) */
+.profile-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
+}
+
+.profile-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 14px;
+  margin-bottom: 22px;
+}
+
+.back-link-profile {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #0f172a;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.brand-mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #0f172a;
+}
+
+.brand-mini span {
+  display: block;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.profile-title {
+  margin: 0 0 18px;
+  font-size: 2rem;
+  color: #0f172a;
+}
+
+.profile-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.profile-card,
+.stats-card,
+.profile-orders {
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.profile-card {
+  padding: 24px;
+  display: grid;
+  gap: 20px;
+}
+
+.profile-user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #d1fae5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0f766e;
+  font-size: 1.8rem;
+}
+
+.profile-user h2 {
+  margin: 0 0 4px;
+  font-size: 1.2rem;
+}
+
+.profile-user span {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.profile-info {
+  display: grid;
+  gap: 14px;
+}
+
+.info-row {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 10px;
+  color: #475569;
+}
+
+.info-row small {
+  color: #94a3b8;
+  font-size: 0.78rem;
+}
+
+.info-row p {
+  margin: 4px 0 0;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.profile-actions {
+  display: grid;
+  gap: 10px;
+}
+
+.outline-btn,
+.primary-btn,
+.secondary-btn {
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 600;
+  border: 1px solid #0f766e;
+  background: #fff;
+  color: #0f766e;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.primary-btn {
+  background: #0f766e;
+  color: #fff;
+}
+
+.primary-btn:hover {
+  background: #0a4d48;
+}
+
+.secondary-btn {
+  background: #e5e7eb;
+  border-color: transparent;
+  color: #0f172a;
+}
+
+.secondary-btn:hover {
+  background-color: #bbbec2;
+}
+
+.stats-card {
+  padding: 20px 22px;
+  margin-top: 18px;
+}
+
+.stats-card h3 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.stat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  color: #475569;
+}
+
+.stat-row strong {
+  color: #0f766e;
+}
+
+.profile-orders {
+  padding: 22px;
+}
+
+.orders-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  color: #0f172a;
+}
+
+.orders-list {
+  display: grid;
+  gap: 16px;
+}
+
+.order-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  display: grid;
+  gap: 16px;
+  background: #fff;
+}
+
+.order-card-header {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.order-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #d1fae5;
+  color: #0f766e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-details h4 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+}
+
+.order-details span {
+  color: #64748b;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+}
+
+.order-meta {
+  display: grid;
+  gap: 6px;
+  justify-items: end;
+}
+
+.order-meta strong {
+  color: #0f766e;
+  font-size: 1.1rem;
+}
+
+.status-pill {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.status-completed {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status-processing {
+  background: #e0e7ff;
+  color: #1d4ed8;
+}
+
+.status-pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-default {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.order-items {
+  display: grid;
+  gap: 10px;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 6px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.item-title {
+  margin: 0;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.item-author {
+  display: block;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.item-qty {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.empty-orders {
+  padding: 18px;
+  border-radius: 12px;
+  background: #f8fafc;
+  color: #64748b;
+}
+
+@media (max-width: 1024px) {
+  .profile-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .profile-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .order-card-header {
+    grid-template-columns: 44px 1fr;
+  }
+
+  .order-meta {
+    justify-items: start;
+  }
+}

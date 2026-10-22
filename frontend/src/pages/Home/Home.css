@@ -1,0 +1,382 @@
+.home-container {
+    background: #ffffff;
+    overflow-x: hidden;
+    /* Crucial para evitar el scroll horizontal */
+    width: 100%;
+}
+
+.banner-section {
+    position: relative;
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+    /* Cambiado de 100vw */
+    padding: 12px 24px;
+}
+
+.banner-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.div-banner-title {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+}
+
+.banner-content {
+    z-index: 10;
+}
+
+.banner-title {
+    line-height: 1.0;
+    font-size: 55px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 16px 0;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+.banner-subtitle {
+    font-size: 19px;
+    color: #ffffff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+    padding: 15px;
+}
+
+.filters-section {
+    background: #fbf9fa;
+    width: 100%;
+    /* Eliminamos cualquier margen negativo o cálculo de vw */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.filters-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    /* Reducimos un poco para dar margen interno */
+    width: 100%;
+    box-sizing: border-box;
+    /* Fundamental para que el padding no sume al ancho */
+}
+
+.filters-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filters-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+}
+
+.filters-btn {
+    display: flex;
+    gap: 8px;
+    background: white;
+    border: 2px solid #d1d5db;
+    color: #374151;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.filters-btn:hover {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+}
+
+.filters-content {
+    display: grid;
+    /* Cambiamos minmax para que no fuerce un ancho mínimo de 200px en pantallas pequeñas */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-top: 15px;
+    background-color: white;
+    border: 1px solid #ebe6e7;
+    border-radius: 10px;
+    padding: 24px;
+    box-sizing: border-box;
+    /* Asegura que el borde y padding se queden ADENTRO */
+    width: 100%;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    /* Permite que el flex-item se encoja si es necesario */
+}
+
+.filter-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.filter-select,
+.filter-input {
+    padding: 10px 10px;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.filter-select:focus,
+.filter-input:focus {
+    outline: none;
+    border-color: #ebe6e7;
+    box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+}
+
+.price-inputs {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+
+.filter-input {
+    flex: 1;
+}
+
+
+.price-inputs .filter-input {
+    width: 50%;
+    /* Evita que crezcan infinitamente */
+    min-width: 0;
+    /* Permite que el input se encoja */
+}
+
+.books-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 0px 20px;
+}
+
+.title-stock {
+    margin: 20px;
+}
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.books-grid-small {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+}
+
+.book-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.book-card-image {
+    position: relative;
+    aspect-ratio: 2/3;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.book-card:hover .book-card-image {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+}
+
+.book-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.book-card-out-of-stock {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.out-of-stock-badge {
+    background: #ef4444;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.book-title {
+    color: #111827;
+    font-size: 16px;
+    line-height: 1.1;
+    margin-bottom: 0px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.book-author {
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.book-price {
+    color: #0f766e;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.no-results-icon {
+    font-size: 3rem;
+    color: #d1d5db;
+    margin-bottom: 16px;
+}
+
+.no-results-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.no-results-text {
+    color: #6b7280;
+    margin-bottom: 24px;
+}
+
+.clear-filters-btn {
+    background: #0f766e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.clear-filters-btn:hover {
+    background: #115e59;
+}
+
+@media (max-width: 768px) {
+    .filters-title {
+        margin-top: 55px;
+    }
+
+    .hero-section {
+        height: 280px;
+    }
+
+    .hero-title {
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+    }
+
+    .filters-section {
+        margin-top: -60px;
+        margin-bottom: 30px;
+        padding: 0 12px;
+    }
+
+    .filters-container {
+        padding: 16px;
+    }
+
+    .filters-header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 16px;
+    }
+
+    .filters-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .filters-content {
+        grid-template-columns: 1fr;
+    }
+
+    .books-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+
+    .books-grid-small {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+    }
+
+    .books-section {
+        padding: 0 12px 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .filters-title {
+        margin-top: 55px;
+    }
+
+    .hero-section {
+        height: 240px;
+    }
+
+    .filters-section {
+        margin-top: -50px;
+        margin-bottom: 20px;
+        padding: 0 10px;
+    }
+
+    .filters-container {
+        padding: 12px;
+    }
+
+    .filters-header {
+        gap: 8px;
+    }
+
+    .books-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .books-grid-small {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .books-section {
+        padding: 0 10px 100px;
+    }
+}

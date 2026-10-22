@@ -1,0 +1,33 @@
+# ---------------------------------------------------------------------------
+# Relatos de Papel
+# Todo se parametriza por variables de entorno; los valores por defecto sirven para
+# desarrollo local con docker-compose (MySQL en localhost:3307).
+# En AWS (EC2 + RDS) se definen DB_HOST (endpoint de RDS), DB_PORT=3306, etc.
+# ---------------------------------------------------------------------------
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: relatos-papel
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3307}/${DB_NAME:relatos_papel}?useSSL=${DB_USE_SSL:false}&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:mysql}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # Flyway crea las tablas y carga los datos de ejemplo la primera vez (db/migration).
+  # Es idempotente: en los siguientes arranques no repite nada.
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: ${SHOW_SQL:false}
+
+logging:
+  level:
+    root: INFO
