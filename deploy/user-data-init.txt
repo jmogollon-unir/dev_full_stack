@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# Relatos de Papel - User data para la EC2 (Amazon Linux 2023, x86_64)
+# Relatos de Papel
 # Se pega en: EC2 > Launch instance > Advanced details > User data
 # Se ejecuta UNA vez, como root, en el primer arranque de la instancia.
 # =============================================================================
@@ -9,12 +9,10 @@
 DB_HOST="REEMPLAZAR-por-el-endpoint-de-RDS.xxxxxxxx.us-east-1.rds.amazonaws.com"
 DB_PORT="3306"
 DB_NAME="relatos_papel"
-DB_USER="root"
-DB_PASSWORD="mysql"
+DB_USER="admin"
+DB_PASSWORD="REEMPLAZAR-por-la-contraseña-del-master-de-RDS"
 
-# Opcional: repositorio Git (HTTPS, público) con este proyecto. Si lo dejas vacío, el script
-# instala todo lo necesario y espera a que subas el proyecto por scp (ver docs/AWS-paso-a-paso.md).
-REPO_URL=""
+REPO_URL="https://github.com/jmogollon-unir/dev_full_stack"
 REPO_BRANCH="main"
 # -----------------------------------------------------------------------------
 
